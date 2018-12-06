@@ -1,0 +1,67 @@
+<h1 class="page-title">
+  {{'vip_finish_form_title' | translate: 'Set your VIP account to start now!'}}
+</h1>
+<div class="line-separator"></div>
+
+<div class="personal-info-text">
+  <h1 class="form-title">
+    {{'vip_finish_client_form_title'
+    | translate: 'Please, set your personal information'}}
+  </h1>
+  <div class="form-subtitle">
+    {{'vip_finish_client_form_subtitle'
+    | translate: 'to be able to receive confidential information and personal help with property research'}}
+  </div>
+</div>
+
+<div class="personal-info">
+
+  <div class="input-group">
+    <label>
+      {{'vip_client_form_name_label' | translate: 'Your name'}}
+      <span>*</span>
+    </label>
+    <input #name
+           (input)="onInput()"
+           [(ngModel)]="clientName"
+           name="email"
+           [placeholder]="'vip_client_form_name_label' | translate: 'Your name'"
+           class="white"/>
+  </div>
+
+  <div class="input-group">
+    <label>
+      {{'vip_client_form_telephone_label' | translate: 'Telephone'}}
+      <span>*</span>
+    </label>
+    <input #name
+           (input)="onInput()"
+           [(ngModel)]="clientPhone"
+           name="email"
+           [placeholder]="'vip_client_form_telephone_label' | translate: 'Telephone'"
+           class="white"/>
+  </div>
+
+</div>
+
+<div class="line-separator"></div>
+
+<div class="request-info">
+
+  <h1 class="form-title">
+    {{'vip_finish_form_request_title' | translate: 'Add your research criteria'}}
+  </h1>
+  <div class="form-subtitle">
+    {{'vip_finish_form_request_subtitle' | translate: 'Please, set your criteria to focus on relevant offers only'}}
+  </div>
+
+  <client-request-edit-form [object]="request"
+                            [error]="error"
+                            [buttonSaveDisabled]="buttonSaveDisabled"
+                            [buttonSaveText]="'vip_request_finish_button_save' | translate: 'Save project'"
+                            (onChange)="onInput()"
+                            (onSave)="onFinishSaveClick()"
+                            class="client-request-form">
+  </client-request-edit-form>
+
+</div>

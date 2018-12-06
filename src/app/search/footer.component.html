@@ -1,0 +1,158 @@
+<div class="center">
+  <footer class="footer">
+    <div class="footer__content">
+
+      <!-- Our Contacts -->
+      <div class="footer__col footer__col--1">
+
+        <h4 class="footer__heading">
+          {{'our_contacts' | translate: 'Our Contacts'}}
+        </h4>
+
+        <div class="footer__address">
+
+          <ul class="footer__address__list">
+            <li class="footer__address__item">
+              <a href="tel:++33 (0) 7 88 05 05 05" class="footer__address__link">
+                {{'tel' | translate: '+33 (0)7 88 05 05 05'}}
+              </a>
+            </li>
+            <li class="footer__address__item">
+              <a href="mailto:info@white-estate.fr" class="footer__address__link">
+                {{'info' | translate: 'info@white-estate.fr'}}
+              </a>
+            </li>
+            <li class="footer__address__item">
+              <p class="footer__address__street">
+                {{'address' | translate: '23 road Jean de Riouffe, 06400 Cannes'}}
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div><!-- .footer__col -->
+
+      <!-- About Us -->
+      <div class="footer__col footer__col--2">
+        <h4 class="footer__heading">{{'more_about_us' | translate: 'More about us'}}</h4>
+
+        <ul class="footer__about-us">
+          <li class="footer__about-us__item">
+            <a class="footer__about-us__link" [routerLink]="['/' + translation.activeLocale, 'about']">
+              {{'about' | translate: 'About'}}
+            </a>
+          </li>
+          <li class="footer__about-us__item">
+            <a class="footer__about-us__link" [routerLink]="['/' + translation.activeLocale, 'career']">
+              {{'emploi' | translate: 'Career'}}
+            </a>
+          </li>
+          <li class="footer__about-us__item">
+            <a class="footer__about-us__link" [routerLink]="['/' + translation.activeLocale, 'partners']">
+              {{'partenaires' | translate: 'Partners'}}
+            </a>
+          </li>
+          <li class="footer__about-us__item">
+            <a class="footer__about-us__link" [routerLink]="['/' + translation.activeLocale, 'owners']">
+              {{'owners' | translate: 'Owners'}}
+            </a>
+          </li>
+          <li class="footer__about-us__item">
+            <a class="footer__about-us__link" [routerLink]="['/' + translation.activeLocale, 'legal']">
+              {{'pieces' | translate: 'Legal Details'}}
+            </a>
+          </li>
+        </ul>
+      </div><!-- .footer__col -->
+
+      <!-- Real Estate -->
+      <div class="footer__col footer__col--3">
+        <h4 class="footer__heading">{{'real_estate' | translate: 'Real Estate'}}</h4>
+
+        <ul class="footer__real-estate">
+          <li class="footer__real-estate__item">
+            <a
+              [routerLink]="['/' + translation.activeLocale, 'search', ('vente' | translate: 'buy' | lowercase) + '_' + ('vefa' | translate: 'new building' | lowercase)]"
+              class="footer__real-estate__link">
+              {{'footer_link_new' | translate: 'New constructions'}}
+            </a>
+          </li>
+          <li class="footer__real-estate__item">
+            <a
+              [routerLink]="['/' + translation.activeLocale, 'search', ('vente' | translate: 'buy' | lowercase) + '_' + ('apartment' | translate: 'apartment' | lowercase)]"
+              class="footer__real-estate__link">
+              {{'footer_link_apartments' | translate: 'Luxury apartments'}}
+            </a>
+          </li>
+          <li class="footer__real-estate__item">
+            <a
+              [routerLink]="['/' + translation.activeLocale, 'search', ('vente' | translate: 'buy' | lowercase) + '_' + ('villa' | translate: 'villa' | lowercase)]"
+              class="footer__real-estate__link">
+              {{'footer_link_villas' | translate: 'Luxury villas'}}
+            </a>
+          </li>
+          <li class="footer__item">
+            <a
+              [routerLink]="['/' + translation.activeLocale, 'search', ('vente' | translate: 'buy' | lowercase) + '_' + ('land' | translate: 'land' | lowercase)]"
+              class="footer__real-estate__link">
+              {{'footer_link_land' | translate: 'Land for sale'}}
+            </a>
+          </li>
+        </ul>
+      </div><!-- .footer__col -->
+
+      <!-- Language Options -->
+      <div class="footer__col footer__col--4 align-end">
+        <language-selector color="white"
+                           view="b">
+        </language-selector>
+      </div><!-- .footer__col -->
+    </div><!-- .footer__content -->
+
+    <div class="footer__divider"></div>
+
+    <div class="footer__content">
+
+      <div class="footer__copyright">&copy; SAS White Estate 2018</div>
+
+      <p class="footer__license">{{'copyrights' | translate: 'copyrights'}}</p>
+
+      <ul class="footer__social">
+        <li class="footer__social__item">
+          <a href="https://www.facebook.com/FrenchRivieraLuxuryHomes/" target="_blank">
+            <svg width="8" height="18" viewBox="0 0 8 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M4.88441 17.7705V10.384H7.05748L7.34545 6.8048H4.88441L4.8881 5.01336C4.8881 4.07984 4.95532 3.57964 5.97156 3.57964H7.33007V0H5.15669C2.54612 0 1.62726 1.73631 1.62726 4.65625V6.8052H0V10.3844H1.62726V17.7705H4.88441Z"
+                    fill="white" fill-opacity="0.4"/>
+            </svg>
+          </a>
+        </li>
+        <li class="footer__social__item">
+          <a href="https://plus.google.com/u/1/b/114038755499091256842/+White-estateFr" target="_blank">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="28" height="22" fill="none" viewBox="0 0 36 28">
+              <path d="M22.453 14.266c0 6.547-4.391 11.188-11 11.188-6.328 0-11.453-5.125-11.453-11.453s5.125-11.453 11.453-11.453c3.094 0 5.672 1.125 7.672 3l-3.109 2.984c-0.844-0.812-2.328-1.766-4.562-1.766-3.906 0-7.094 3.234-7.094 7.234s3.187 7.234 7.094 7.234c4.531 0 6.234-3.266 6.5-4.937h-6.5v-3.938h10.813c0.109 0.578 0.187 1.156 0.187 1.906zM36 12.359v3.281h-3.266v3.266h-3.281v-3.266h-3.266v-3.281h3.266v-3.266h3.281v3.266h3.266z"
+              fill="white" fill-opacity="0.4"/>
+              </svg>
+          </a>
+        </li>
+        <li class="footer__social__item">
+          <a href="https://www.youtube.com/channel/UCk1CLH68lHxyOsngHPCWiOA" target="_blank">
+            <svg width="19" height="16" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M9.03759 4.60824L9.07607 5.26883L8.43474 5.18794C6.10033 4.87787 4.06092 3.82632 2.32935 2.06026L1.48281 1.18397L1.26476 1.83107C0.803006 3.27358 1.09801 4.79698 2.06 5.82157C2.57306 6.38779 2.45762 6.46867 1.57259 6.13164C1.26476 6.02379 0.995403 5.9429 0.96975 5.98334C0.879965 6.07771 1.1878 7.30452 1.4315 7.78985C1.76499 8.46392 2.44479 9.12451 3.18873 9.51547L3.81722 9.82554L3.07329 9.83902C2.35501 9.83902 2.32935 9.8525 2.40631 10.1356C2.66284 11.0119 3.67613 11.9421 4.80486 12.3466L5.6001 12.6297L4.90747 13.0611C3.88135 13.6812 2.67567 14.0317 1.46998 14.0587C0.892791 14.0722 0.418213 14.1261 0.418213 14.1666C0.418213 14.3014 1.98304 15.0563 2.89372 15.3529C5.62575 16.2292 8.87084 15.8517 11.3079 14.3553C13.0394 13.2903 14.771 11.1737 15.5791 9.12451C16.0152 8.03252 16.4513 6.03727 16.4513 5.08009C16.4513 4.45995 16.4898 4.37906 17.208 3.63758C17.6313 3.20618 18.0289 2.73433 18.1059 2.59951C18.2342 2.34337 18.2213 2.34337 17.5672 2.57255C16.4769 2.97699 16.323 2.92307 16.8617 2.3164C17.2593 1.885 17.7339 1.10308 17.7339 0.873893C17.7339 0.833449 17.5415 0.900856 17.3235 1.02219C17.0926 1.157 16.5795 1.35922 16.1947 1.48056L15.5021 1.70974L14.8736 1.26485C14.5273 1.02219 14.0399 0.752561 13.7834 0.671672C13.1292 0.482933 12.1288 0.509895 11.5387 0.725598C9.93544 1.33226 8.92215 2.8961 9.03759 4.60824Z"
+                    fill="white" fill-opacity="0.4"/>
+            </svg>
+          </a>
+        </li>
+        <li class="footer__social__item">
+          <a href="https://www.instagram.com/white_estate/" target="_blank">
+            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M10.207 0C7.54707 0 7.21325 0.012091 6.16856 0.0615158C5.1259 0.111153 4.4142 0.282761 3.79146 0.534551C3.1473 0.794614 2.60087 1.1425 2.05649 1.70865C1.51169 2.2746 1.17706 2.84267 0.926093 3.51213C0.683282 4.15974 0.518007 4.89984 0.471078 5.98337C0.424352 7.06944 0.412109 7.41668 0.412109 10.1819C0.412109 12.9472 0.423944 13.2931 0.471282 14.3792C0.519232 15.4632 0.684302 16.203 0.926297 16.8504C1.17666 17.5201 1.51129 18.0882 2.05588 18.6541C2.60006 19.2205 3.14648 19.5692 3.79024 19.8293C4.41338 20.0811 5.12529 20.2527 6.16774 20.3023C7.21244 20.3518 7.54605 20.3638 10.2057 20.3638C12.8658 20.3638 13.1986 20.3518 14.2433 20.3023C15.286 20.2527 15.9985 20.0811 16.6217 19.8293C17.2656 19.5692 17.8112 19.2205 18.3554 18.6541C18.9002 18.0882 19.2348 17.5201 19.4858 16.8507C19.7266 16.203 19.8918 15.4629 19.9408 14.3794C19.9877 13.2934 20 12.9472 20 10.1819C20 7.41668 19.9877 7.06965 19.9408 5.98358C19.8918 4.89963 19.7266 4.15974 19.4858 3.51234C19.2348 2.84267 18.9002 2.2746 18.3554 1.70865C17.8106 1.14228 17.2658 0.794402 16.621 0.534551C15.9967 0.282761 15.2846 0.111153 14.2419 0.0615158C13.1972 0.012091 12.8646 0 10.2039 0H10.207ZM9.32838 1.83487C9.58915 1.83444 9.88012 1.83487 10.207 1.83487C12.822 1.83487 13.1319 1.84462 14.1646 1.89341C15.1195 1.93881 15.6378 2.10469 15.983 2.24405C16.4401 2.4286 16.7659 2.64921 17.1085 3.00558C17.4513 3.36194 17.6635 3.70134 17.8414 4.1765C17.9755 4.53499 18.1353 5.07378 18.1787 6.06652C18.2257 7.13986 18.2359 7.46229 18.2359 10.1796C18.2359 12.8969 18.2257 13.2193 18.1787 14.2927C18.1351 15.2854 17.9755 15.8242 17.8414 16.1827C17.6639 16.6578 17.4513 16.9962 17.1085 17.3523C16.7657 17.7087 16.4403 17.9293 15.983 18.1139C15.6382 18.2539 15.1195 18.4193 14.1646 18.4647C13.1321 18.5135 12.822 18.5241 10.207 18.5241C7.59178 18.5241 7.28184 18.5135 6.24938 18.4647C5.29446 18.4189 4.7762 18.253 4.43075 18.1136C3.9737 17.9291 3.64723 17.7085 3.30444 17.3521C2.96164 16.9958 2.74944 16.6572 2.57152 16.1818C2.43746 15.8233 2.27769 15.2846 2.23423 14.2918C2.1873 13.2185 2.17792 12.896 2.17792 10.177C2.17792 7.45805 2.1873 7.13732 2.23423 6.06397C2.2779 5.07123 2.43746 4.53244 2.57152 4.17353C2.74903 3.69837 2.96164 3.35897 3.30444 3.00261C3.64723 2.64624 3.9737 2.42563 4.43075 2.24066C4.77599 2.10066 5.29446 1.9352 6.24938 1.88959C7.15288 1.84717 7.50302 1.83444 9.32838 1.83232V1.83487ZM15.4349 3.52549C14.7861 3.52549 14.2596 4.07214 14.2596 4.7469C14.2596 5.42145 14.7861 5.96873 15.4349 5.96873C16.0838 5.96873 16.6102 5.42145 16.6102 4.7469C16.6102 4.07235 16.0838 3.52507 15.4349 3.52507V3.52549ZM10.207 4.95308C7.42932 4.95308 5.17731 7.29429 5.17731 10.1819C5.17731 13.0696 7.42932 15.4097 10.207 15.4097C12.9846 15.4097 15.2358 13.0696 15.2358 10.1819C15.2358 7.29429 12.9844 4.95308 10.2068 4.95308H10.207ZM10.2069 6.78795C12.0099 6.78795 13.4716 8.30739 13.4716 10.1819C13.4716 12.0562 12.0099 13.5759 10.2069 13.5759C8.40382 13.5759 6.94226 12.0562 6.94226 10.1819C6.94226 8.30739 8.40382 6.78795 10.2069 6.78795Z"
+                    fill="white" fill-opacity="0.4"/>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div><!-- .footer__content -->
+  </footer>
+</div><!-- .center -->

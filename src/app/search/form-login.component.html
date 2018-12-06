@@ -1,0 +1,102 @@
+<ng-container *ngIf="!isPasswordRecovery">
+
+  <form class="form active">
+    <label class="form__label">{{'popup_field_email' | translate: 'Enter email *'}}</label>
+    <div class="form__group">
+      <input #email
+             class="form__input"
+             type="email"
+             name="email"
+             [placeholder]="('popemail' | translate: 'Email')"
+             (blur)="onEmailBlur(email.value)"
+             (input)="onInput()">
+    </div>
+
+    <div class="form__group">
+      <label class="form__label">{{'popup_field_pass' | translate: 'Enter password *'}}</label>
+      <input #password
+             class="form__input"
+             type="password"
+             name="password"
+             [placeholder]="('poppasslog' | translate: 'Password')"
+             (blur)="onPasswordBlur(password.value)"
+             (input)="onInput()">
+    </div>
+
+    <div class="form__info">
+      <p class="form__info__p">
+        {{formHint || ''}}
+      </p>
+
+      <button (click)="togglePasswordRecovery()">
+        {{'forgotpass' | translate: 'Forgot password?'}}
+      </button>
+    </div>
+
+    <div class="alert-error" *ngIf="error">
+      {{error}}
+    </div>
+
+    <button class="form__submit"
+            [disabled]="buttonLoginDisabled"
+            (click)="onLoginClicked(email.value, password.value)">
+      {{buttonText || ('poplog' | translate: 'Login')}}
+    </button>
+  </form>
+</ng-container>
+
+<ng-container *ngIf="isPasswordRecovery">
+  <p class="password-lost-title">
+    {{'auth_pass_recovery_top_text' | translate}}
+  </p>
+
+  <form class="form active">
+    <div class="form__group">
+      <input #email
+             class="form__input"
+             type="email"
+             name="email"
+             [placeholder]="'popemail' | translate: 'Email Address'"
+             (input)="onInput()">
+    </div>
+
+    <div class="form__info">
+      <p class="form__info__p"></p>
+
+      <button class="btn-toggle-login"
+              (click)="togglePasswordRecovery()">
+        {{'returnlogin' | translate: 'Return to login'}}
+      </button>
+    </div>
+
+    <div class="alert-error" *ngIf="error">
+      {{error}}
+    </div>
+
+    <div class="alert-success" *ngIf="success">
+      {{success}}
+    </div>
+
+    <button class="form__submit"
+            [disabled]="buttonResetRequestDisabled"
+            (click)="passwordRecoveryClicked(email.value)">
+      {{'btnresetpass' | translate: 'Reset password'}}
+    </button>
+  </form>
+</ng-container>
+
+<div class="social-auth">
+  <p class="form__p">
+    <span>
+      {{'auth_social_buttons_text' | translate: 'or sign-in in 1 click'}}
+    </span>
+  </p>
+
+  <button class="form__btn__fb"
+          (click)="facebookLoginClick.emit()">
+    <img src="assets/svg/fb.svg" alt="facebook logo">
+    <span class="form__btn__fb__span">
+      {{'poplogfb' | translate: 'Log in with Facebook'}}
+    </span>
+  </button>
+</div>

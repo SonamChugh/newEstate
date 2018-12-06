@@ -1,0 +1,20 @@
+<div class="unsubscribe-modal">
+
+  <div *ngIf="performUnsubscribing">
+    <mat-progress-bar [mode]="progressBarMode"></mat-progress-bar>
+  </div>
+
+  <ng-container *ngIf="!performUnsubscribing">
+    <div class="title">{{text}}</div>
+    <div>
+      <button [disabled]="buttonSubscribeDisabled" class="btn-orange" (click)="sendSubscribe()">
+        {{buttonText}}
+      </button>
+    </div>
+  </ng-container>
+
+  <div class="alert-error" *ngIf="error">
+    {{error}}
+  </div>
+
+</div>

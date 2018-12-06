@@ -1,0 +1,182 @@
+<div class="upper-panel">
+  <button aria-label="Close" class="btn-close" type="button" (click)="onClose.emit(null)">
+    <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"
+         style="display: block; fill: rgb(72, 72, 72); height: 15px; width: 15px;">
+      <path fill-rule="evenodd"
+            d="M11.5 10.5c.3.3.3.8 0 1.1-.3.3-.8.3-1.1 0L6 7.1l-4.5 4.5c-.3.3-.8.3-1.1 0-.3-.3-.3-.8 0-1.1L4.9 6 .5 1.5C.2 1.2.2.7.5.4c.3-.3.8-.3 1.1 0L6 4.9 10.5.4c.3-.3.8-.3 1.1 0 .3.3.3.8 0 1.1L7.1 6l4.4 4.5z"></path>
+    </svg>
+  </button>
+  <div class="header-text" (click)="onClose.emit(null)">{{translation.strings.filtersm}}</div>
+</div>
+
+<div class="filters-list">
+
+  <div class="filter-item">
+    <button-group [options]="searchService.buyRentOptions"
+                  [multiple]="false"
+                  [selectedValue]="searchParams.sale"
+                  (change)="onBuyRentChange($event)">
+    </button-group>
+  </div>
+
+  <div class="filter-item">
+    <button-group [options]="searchService.typeOptions"
+                  [multiple]="true"
+                  [checkedValues]="searchParams.typeValues"
+                  (change)="handleButtonGroupChange(searchParams.typeValues, $event)"
+                  class="theme-dark">
+    </button-group>
+  </div>
+
+  <div class="border-line">
+    <div class="inner-line"></div>
+  </div>
+
+  <div class="filter-item row-flex" (click)="toggleCityFilters(!isCityFilterVisible, isCityFilterVisible)">
+    <div class="filter-label">{{translation.strings.resorts || 'Resorts'}}</div>
+    <div class="toggle-list">
+      <div class="toggle-list-text">{{isCityFilterVisible ? (translation.strings.closelist || 'Close list') :
+        (translation.strings.openlist || 'Open list')}}
+      </div>
+      <div class="arrow-container" [class.active]="isCityFilterVisible">
+        <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false"
+             style="display: block; fill: currentcolor; height: 10px; width: 10px;">
+          <path fill-rule="evenodd"
+                d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="tags-container" *ngIf="isCityTagsVisible">
+    <div *ngFor="let option of checkedCities" class="white-tag-item">
+      <button (click)="toggleCity(option, true)"><i class="fa fa-times" aria-hidden="true"></i></button>
+      <span>{{option.shortText || option.text}}</span>
+    </div>
+  </div>
+
+  <div class="filter-values" *ngIf="isCityFilterVisible" [@popupState]="citiesAnimationPopupState"
+       (@popupState.done)="onCitiesPopupAnimationDone($event)">
+
+    <div *ngFor="let tab of searchService.citiesOptions">
+      <ul class="no-style-type">
+        <li *ngFor="let option of tab.options" (click)="toggleCity(option, false)">
+          <input type="checkbox"
+                 [checked]="searchParams.cityValues.has(option.value)"/>
+          <label>{{option.text}}</label>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-line">
+    <div class="inner-line"></div>
+  </div>
+
+  <div class="filter-item">
+    <span class="filter-label">{{translation.strings.chambres || 'Bedrooms'}}</span>
+  </div>
+
+  <div class="filter-values">
+    <div class="input-group">
+
+      <input (keypress)="restrictDigit($event)"
+             (input)="performSearch('bedroomsFrom', $event.target.value)"
+             [value]="searchParams.bedroomsFrom || ''"
+             [placeholder]="translation.strings.srchfrom"
+             type="text"
+             class="width-50"
+             name="bedrooms-from"/>
+
+      <input (keypress)="restrictDigit($event)"
+             (input)="performSearch('bedroomsTo', $event.target.value)"
+             [value]="searchParams.bedroomsTo || ''"
+             [placeholder]="translation.strings.srchto"
+             type="text"
+             class="width-50"
+             name="bedrooms-to"/>
+    </div>
+  </div>
+
+  <div class="border-line">
+    <div class="inner-line"></div>
+  </div>
+
+  <div class="filter-item row-flex">
+    <div class="filter-label">{{'surface' | translate:'Surface'}} (m²)</div>
+  </div>
+
+  <div class="filter-values">
+    <div class="input-group">
+
+      <input (keypress)="restrictDigit($event)"
+             (input)="performSearch('surfaceFrom', $event.target.value)"
+             [value]="searchParams.surfaceFrom || ''"
+             [placeholder]="translation.strings.srchfrom"
+             type="text"
+             class="width-50"
+             name="surface-from"/>
+
+      <input (keypress)="restrictDigit($event)"
+             (input)="performSearch('surfaceTo', $event.target.value)"
+             [value]="searchParams.surfaceTo || ''"
+             [placeholder]="translation.strings.srchto"
+             type="text"
+             class="width-50"
+             name="surface-to"/>
+    </div>
+  </div>
+
+  <div class="border-line">
+    <div class="inner-line"></div>
+  </div>
+
+  <div class="filter-item row-flex">
+    <div class="filter-label">{{translation.strings.budget || 'Budget'}} (<span class="euro-sign">€</span>)</div>
+  </div>
+
+  <div *ngIf="searchParams.sale === BuyRent.Sale" class="filter-values">
+    <div class="input-group">
+
+      <input (keypress)="restrictDigit($event)"
+             (input)="formatThousands($event);performSearch('budgetFrom', $event.target.value);"
+             [value]="searchParams.budgetFromFormatted || ''"
+             [placeholder]="translation.strings.srchfrom"
+             type="text"
+             class="width-50"
+             name="budget-from"/>
+
+      <input (keypress)="restrictDigit($event)"
+             (input)="formatThousands($event);performSearch('budgetTo', $event.target.value);"
+             [value]="searchParams.budgetToFormatted || ''"
+             [placeholder]="translation.strings.srchto"
+             type="text"
+             class="width-50"
+             name="budget-to"/>
+    </div>
+  </div>
+
+  <div *ngIf="searchParams.sale === BuyRent.Rent" class="filter-values">
+
+    <button *ngFor="let option of searchService.budgetRentOptions"
+            [value]="option.value"
+            [class.active]="searchParams.rentalRangeValues.has(option.value)"
+            (click)="handleMultiple(searchParams.rentalRangeValues, option.value)"
+            class="btn-rental-budget-filter">
+      {{option.text}}
+    </button>
+
+  </div>
+
+  <div class="border-line">
+    <div class="inner-line"></div>
+  </div>
+
+</div>
+
+<div class="bottom-fixed-panel" [class.load-container]="loading" *ngIf="loading || propertiesFound !== null">
+  <div class="load-speeding-wheel" *ngIf="loading"></div>
+  <button *ngIf="!loading" (click)="onConfirm.emit(null)">{{translation.strings.seeres || 'See results'}}
+    ({{propertiesFound}})
+  </button>
+</div>

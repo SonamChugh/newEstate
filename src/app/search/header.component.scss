@@ -1,0 +1,290 @@
+@import "~bootstrap/scss/bootstrap-grid";
+
+$color-pink: #fe5069;
+
+:host {
+  display: block;
+  font-family: Roboto, Arial, sans-serif;
+}
+
+.header-wrapper {
+  height: 60px;
+  width: 100%;
+  z-index: 10;
+
+  position: relative;
+
+  @include media-breakpoint-down(sm) {
+    height: 60px;
+  }
+
+  &.black {
+
+    .logo,
+    .logo-subtitle {
+      color: #212121;
+    }
+
+    .btn-toggle-menu {
+      color: #4a4a4a;
+    }
+
+    .user__name {
+      color: #212121;
+    }
+
+    .header-bg {
+      background: #fff;
+    }
+
+    .favorites {
+      &__link {
+        color: black;
+
+        &:visited {
+          color: black;
+        }
+      }
+    }
+  }
+
+  &.white {
+    .logo,
+    .logo-subtitle {
+      color: white;
+    }
+
+    .btn-toggle-menu {
+      color: white;
+    }
+
+    .user__name {
+      color: white;
+    }
+
+    .btn-auth {
+      color: white;
+    }
+  }
+}
+
+.block-upper {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  z-index: 100;
+  position: relative;
+  z-index: 10;
+
+  @include media-breakpoint-down(md) {
+    padding: 0 20px;
+  }
+}
+
+.btn-mobile-nav {
+  display: inline-block;
+  background: transparent;
+  border: none;
+  margin-right: 15px;
+  font-size: 28px;
+
+  .white & {
+    color: white;
+  }
+
+  .black & {
+    color: black;
+  }
+
+  @include media-breakpoint-up(md) {
+    display: none;
+  }
+}
+
+.logo-container {
+  min-width: 155px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logo {
+  font-family: logo-font, serif;
+  font-size: 38px;
+  color: #212121;
+
+  @include media-breakpoint-down(lg) {
+    font-size: 30px;
+  }
+}
+
+.logo-subtitle {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  color: #212121;
+  line-height: 35px;
+
+  padding-left: 20px;
+  border-left: 1px solid #ebebeb;
+  margin-left: 20px;
+  height: 30px;
+  display: inline-block;
+
+  @include media-breakpoint-down(lg) {
+    font-size: 14px;
+  }
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+.leftbar {
+  margin-left: auto;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .user-menu-container,
+  .langtop {
+    display: inline-block;
+  }
+
+  .langtop {
+    display: inline-block;
+    color: #4a4a4a;
+    vertical-align: middle;
+    height: auto;
+    padding: 0 0 0 20px;
+  }
+}
+
+.line-separator {
+  height: 1px;
+  width: 100%;
+  background-color: #ebebeb;
+}
+
+.divider {
+  width: 1px;
+  height: 30px;
+  background-color: #ebebeb;
+  display: inline-block;
+
+  &:nth-child(2) {
+    @include media-breakpoint-down(lg) {
+      display: none;
+    }
+  }
+}
+
+.favorites {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 20px 0 0;
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+
+  &__icon {
+    margin-right: 10px;
+    display: inline-block;
+  }
+
+  &__link {
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 15px;
+
+    text-decoration: none;
+    color: white;
+
+    &:visited {
+      color: white;
+    }
+  }
+}
+
+.user-menu-container {
+  display: inline-block;
+  color: #4a4a4a;
+  padding: 0 10px 0 20px;
+
+  .btn-toggle-menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: none;
+    background: transparent;
+    padding: 0;
+  }
+
+  .user__avatar {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+
+  .user__name {
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    font-size: 15px;
+    margin-right: 10px;
+
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
+  }
+
+  .user__arrow {
+    font-size: 11px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+}
+
+.btn-auth {
+  border: none;
+  background: none;
+  color: #000;
+  margin-right: 30px;
+  font-size: 12px;
+
+  @include media-breakpoint-up(md) {
+    font-size: 17px;
+  }
+
+  @include media-breakpoint-down(xs) {
+    display: none;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .leftbar {
+    .user-menu-container,
+    .langtop {
+      display: block;
+    }
+
+    .user-menu-container {
+      margin: 0;
+    }
+  }
+
+  .btn-auth {
+    margin-right: 10px;
+  }
+}

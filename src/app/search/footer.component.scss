@@ -1,0 +1,184 @@
+@import '../variables';
+@import "~bootstrap/scss/bootstrap-grid";
+
+:host {
+  display: block;
+}
+
+.footer {
+  background-color: #212121;
+  padding: 40px 0 21px 0;
+
+  &__content {
+    display: grid;
+    grid-template-columns: 3fr 3fr 3fr 2fr;
+
+    width: 100%;
+    padding: 0 50px;
+
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 20px;
+    font-size: 13px;
+    text-align: left;
+
+    color: #b7b7b7;
+
+    @include media-breakpoint-down(md) {
+      padding: 0 20px;
+    }
+
+    @media only screen and (max-width: $tablet-xl) {
+      grid-template-columns: 5fr 4fr 3fr 3fr;
+    }
+
+    @media only screen and (max-width: $tablet) {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  &__col {
+    &--2,
+    &--3 {
+      // Hides About Us and Real Estate Lists below 768px
+      @media only screen and (max-width: $tablet) {
+        display: none;
+      }
+    }
+
+    &--4 {
+      @media only screen and (max-width: $tablet) {
+        grid-column: 4/5;
+      }
+    }
+  }
+
+  // collumn heading styles
+  &__heading {
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    font-size: 16px;
+    color: #ffffff;
+
+    margin-bottom: 22px;
+  }
+
+  // About Us list
+  &__about-us {
+    &__item {
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+    }
+
+    &__link:link,
+    &__link:visited {
+      font-family: "Roboto", sans-serif;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 13px;
+      color: #b7b7b7;
+    }
+  }
+
+  // Real Estate list
+  &__real-estate {
+    &__item {
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+    }
+
+    &__link:link,
+    &__link:visited {
+      font-family: "Roboto", sans-serif;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 13px;
+      color: #b7b7b7;
+    }
+  }
+
+  // Address Styles
+  &__address {
+    width: 179px;
+
+    &__link:link,
+    &__link:visited {
+      font-family: "Roboto", sans-serif;
+      font-style: normal;
+      font-weight: normal;
+      line-height: normal;
+      font-size: 13px;
+      color: #b7b7b7;
+    }
+
+    &__street {
+      margin-top: 21px;
+      font-family: "Roboto", sans-serif;
+      font-style: normal;
+      font-weight: normal;
+      line-height: 20px;
+      font-size: 13px;
+      color: #b7b7b7;
+    }
+  }
+
+  // License Styles
+  &__license {
+    font-family: "Roboto", sans-serif;
+    font-style: Regular;
+    font-size: 13px;
+    line-height: 22px;
+    text-align: Left;
+    fill: Solid;
+    color: #b7b7b7;
+    grid-column: 2/4;
+
+    @media only screen and (max-width: $tablet) {
+      display: none;
+    }
+  }
+
+  // Footer Social Meny Styles
+  &__social {
+    justify-self: end;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 20px;
+    margin-top: 4px;
+
+    &__item:not(:last-child) {
+      margin-right: 15px;
+    }
+
+    @media only screen and (max-width: $tablet) {
+      grid-column: 4/5;
+    }
+  }
+
+  // Footer Divider
+  &__divider {
+    height: 1px;
+    background: #ffffff;
+    opacity: 0.2;
+
+    width: calc(100% - 100px);
+    margin: 20px 50px 30px 50px;
+
+    @include media-breakpoint-down(md) {
+      width: calc(100% - 40px);
+      margin: 20px 20px 30px 20px;
+    }
+  }
+}
+
+.align-end {
+  justify-self: end;
+}

@@ -1,0 +1,32 @@
+<div class="page-auth-login block-center">
+
+  <div class="text-center" *ngIf="principalService.isAuthenticated">
+    <h3>{{'logged_already' | translate: 'You are already logged in'}}</h3>
+
+    <button class="pricebut" (click)="logout()">
+      {{'popsignout' | translate: 'Sign out'}}
+    </button>
+  </div>
+
+  <ng-container *ngIf="!principalService.isAuthenticated">
+
+    <div class="auth-title" *ngIf="title">
+      {{title}}
+    </div>
+    <div class="auth-sub-title" *ngIf="subTitle">
+      {{subTitle}}
+    </div>
+
+    <form-login [buttonResetRequestDisabled]="buttonResetRequestDisabled"
+                [showRegLink]="true"
+                [(error)]="error"
+                [success]="resetRequestSent ? ('resetsentemail' | translate: 'Email sent with a link to reset your password') : ''"
+                [formHint]="''"
+                (loginClick)="login($event.email, $event.password)"
+                (facebookLoginClick)="loginWithFacebook()"
+                (passwordRecoveryClick)="sendRecoveryRequest($event.email)"
+                (toggleSignUpClick)="toggleSignUp()">
+    </form-login>
+  </ng-container>
+
+</div>

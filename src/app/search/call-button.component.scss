@@ -1,0 +1,79 @@
+$animated-button-size: 55px;
+$color-pink: #fe5069;
+
+@keyframes button__a2 {
+
+  0%, 40% {
+    transform: matrix(0.8, 0, 0, 0.8, 0, 0);
+    opacity: 0.66;
+    animation-timing-function: ease-in-out;
+  }
+
+  100% {
+    transform: matrix(1.6, 0, 0, 1.6, 0, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes button__a3 {
+
+  0%, 40% {
+    transform: matrix(0.80, 0, 0, 0.80, 0, 0);
+    opacity: 0.66;
+    animation-timing-function: ease-in-out;
+  }
+
+  100% {
+    transform: matrix(2, 0, 0, 2, 0, 0);
+    opacity: 0;
+  }
+}
+
+.button__a2-animated, .button__a3-animated {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border: 2px solid $color-pink;
+  border-radius: 50%;
+}
+
+.button__a2-animated {
+  animation: button__a2 3.5s infinite;
+}
+
+.button__a3-animated {
+  animation: button__a3 3.5s infinite;
+}
+
+button {
+
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: $color-pink;
+  width: $animated-button-size;
+  height: $animated-button-size;
+
+  i {
+    font-size: 2rem;
+    color: white;
+    transition: transform .5s;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    top: 11px;
+    bottom: 0;
+    right: 0;
+  }
+
+  &:hover {
+
+    i {
+      transform: rotate(-360deg);
+    }
+  }
+}

@@ -1,0 +1,35 @@
+<white-dropdown #component
+                menuAlign="right"
+                [menuWidth]="getMenuWidth()"
+                [increaseMenuTopOffset]="getMenuTopOffset()"
+                [color]="color"
+                [title]="translation.labelByValue[translation.activeLocale]"
+                [menuClass]="getMenuClass()"
+                [class.text-padding]="!mobileView"
+                [class.mobile-view]="mobileView"
+                [class.theme-flags]="true"
+                [class.arrow-sm]="true">
+
+  <white-dropdown-custom-selection>
+    <img [src]="'/assets/svg/flag-' + translation.activeLocale + '.svg'"
+         class="flag flag--selected"
+         [alt]="translation.labelByValue[translation.activeLocale]">
+  </white-dropdown-custom-selection>
+
+  <white-dropdown-option *ngFor="let el of translation.languages; let i = index"
+                         [value]="el.value"
+                         [class.selected]="el.value === translation.activeLocale"
+                         (click)="onChange(el.value);component.closeMenu()">
+    <div class="line-content">
+      <img src="/assets/svg/flag-{{el.value}}.svg"
+           [alt]="el.text"
+           class="flag">
+      <ng-container *ngIf="view === 'a' || view === 'b'">
+        <span>{{el.text}}</span>
+      </ng-container>
+    </div>
+    <div *ngIf="(view === 'a' || view === 'b') && i !== translation.languages.length - 1"
+         class="line-separator">
+    </div>
+  </white-dropdown-option>
+</white-dropdown>

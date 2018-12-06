@@ -1,0 +1,106 @@
+<page-header *ngIf="!isMobileView" view="b" class="theme-dark"></page-header>
+
+<div class="wrapper">
+
+  <div class="indent-top"></div>
+
+  <div class="page-content">
+
+    <div class="page-message">
+      {{'vip_get_text_top' | translate:'Welcome'}}
+    </div>
+
+    <div>
+
+      <h1 class="content-title">
+        <ng-container *ngIf="step === 0">
+          {{'vip_get_step_1_title' | translate: '2 steps left to get VIP access'}}
+        </ng-container>
+        <ng-container *ngIf="step === 1">
+          {{'vip_get_step_2_title' | translate: 'Last step to get VIP access'}}
+        </ng-container>
+        &nbsp;
+      </h1>
+
+      <div>
+
+        <button class="btn-step"
+                [class.active]="step === 0">
+          {{'vip_get_step_1_button' | translate:'1. Log-in or Registration'}}
+        </button>
+
+        <button class="btn-step"
+                [class.active]="step === 1">
+          {{'vip_get_step_2_button' | translate:'2. Set your project'}}
+        </button>
+
+      </div>
+
+      <div class="step-content">
+
+        <ng-container *ngIf="step === 0">
+          <div class="form">
+
+            <div class="tabs">
+
+              <button class="tabs__tab btn-link"
+                      [class.active]="activeForm === 'login'"
+                      (click)="activeForm = 'login'">
+                {{'popsignin' | translate: 'Log in'}}
+              </button>
+              <button class="tabs__tab btn-link"
+                      [class.active]="activeForm === 'register'"
+                      (click)="activeForm = 'register'">
+                {{'popsignup' | translate: 'Register'}}
+              </button>
+
+            </div>
+
+            <div class="tab">
+
+              <div class="tab__wrapper">
+
+                <form-login *ngIf="activeForm === 'login'"
+                            [buttonLoginDisabled]="buttonLoginDisabled"
+                            [(error)]="error"
+                            (loginClick)="onLoginClicked($event.email, $event.password)"
+                            (facebookLoginClick)="onFacebookLoginClicked()"
+                            (googleLoginClick)="onGoogleLoginClicked()">
+                </form-login>
+
+                <form-registration *ngIf="activeForm === 'register'"
+                                   [buttonDisabled]="buttonRegisterDisabled"
+                                   [(error)]="error"
+                                   (registerClick)="onRegisterClicked($event.email, $event.password)"
+                                   (facebookLoginClick)="onFacebookLoginClicked()"
+                                   (googleLoginClick)="onGoogleLoginClicked()">
+                </form-registration>
+              </div>
+
+            </div>
+
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="step === 1">
+
+          <div *ngIf="error" class="alert-error">
+            {{error}}
+          </div>
+
+          <div class="request-form">
+
+            <client-request-edit-form [object]="clientRequest"
+                                      [buttonSaveText]="'vip_get_request_add_button_save' | translate: 'NEXT'"
+                                      (onSave)="onCreateRequestClicked()">
+            </client-request-edit-form>
+
+          </div>
+
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<page-footer></page-footer>

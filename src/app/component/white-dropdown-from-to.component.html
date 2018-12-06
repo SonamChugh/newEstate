@@ -1,0 +1,28 @@
+<div class="white-dropdown white-dropdown-from-to" [class.open]="open">
+  <div class="white-dropdown-current" (click)="toggleMenu()">
+    <div class="white-dropdown-current__text">{{title}}</div>
+  </div>
+  <div *ngIf="open">
+    <div class="white-dropdown-menu"
+         [style.left.px]="menuAlign === 'left' ? 0 : null"
+         [style.right.px]="menuAlign === 'right' ? 0 : null">
+
+      <div class="col-half">
+        <div class="inner">
+          <label>{{labelFrom}}</label><br>
+          <input type="number"
+                 [(ngModel)]="from">
+        </div>
+      </div>
+
+      <div class="col-half">
+        <div class="inner">
+          <label>{{labelTo}}</label><br>
+          <input type="number"
+                 [(ngModel)]="to"/>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

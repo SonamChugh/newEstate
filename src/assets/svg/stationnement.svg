@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="20px" height="22px" viewBox="0 0 20 22" version="1.1" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+  <!-- Generator: Sketch 3.5.1 (25234) - http://www.bohemiancoding.com/sketch -->
+  <title>Group</title>
+  <desc>Created with Sketch.</desc>
+  <defs></defs>
+  <g id="FE-Page-de-Recherch" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+    <g id="Group" sketch:type="MSLayerGroup" transform="translate(-24.000000, -627.000000)" stroke-linecap="round"
+       stroke="#727272" stroke-linejoin="round">
+      <g transform="translate(21.000000, 255.000000)" sketch:type="MSShapeGroup">
+        <g transform="translate(3.000000, 373.000000)">
+          <path d="M0.416666667,9.16666667 L10,0.416666667 L19.5833333,9.16666667" id="Stroke-5753"></path>
+          <path
+            d="M5.41666667,19.5833333 L2.91666667,19.5833333 L2.91666667,17.9166667 L5.41666667,17.9166667 L5.41666667,19.5833333 Z"
+            id="Stroke-5754"></path>
+          <path
+            d="M17.0833333,19.5833333 L14.5833333,19.5833333 L14.5833333,17.9166667 L17.0833333,17.9166667 L17.0833333,19.5833333 Z"
+            id="Stroke-5755"></path>
+          <path
+            d="M17.9166667,17.9166667 L17.9166667,14.5833333 L16.25,12.9166667 L3.75,12.9166667 L2.08333333,14.5833333 L2.08333333,17.9166667 L17.9166667,17.9166667 L17.9166667,17.9166667 Z"
+            id="Stroke-5756"></path>
+          <path
+            d="M14.5833333,8.75 L5.41666667,8.75 L3.75,12.9166667 L16.25,12.9166667 L14.5833333,8.75 L14.5833333,8.75 Z"
+            id="Stroke-5757"></path>
+          <path d="M2.08333333,16.25 L5.83333333,16.25" id="Stroke-5758"></path>
+          <path d="M14.1666667,16.25 L17.9166667,16.25" id="Stroke-5759"></path>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

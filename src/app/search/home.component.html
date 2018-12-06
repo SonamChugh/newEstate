@@ -1,0 +1,248 @@
+<page-header color="white">
+
+  <header-right>
+    <button class="btn-start-search"
+            (click)="onHeaderSearchClick()">
+      <span class="lnr lnr-magnifier"></span>
+      <span>{{'search_btn' | translate: 'Start Search'}}</span>
+    </button>
+  </header-right>
+</page-header>
+
+
+<div *ngIf="target === 1" class="thanks">
+  <div class="thanks__overlay">
+    <div class="thanks__wrapper">
+      <h1 class="thanks__header">
+        {{'titrethank' | translate: 'Thanks for your request! We will contact you shortly'}}
+      </h1>
+      <p class="thanks__message">
+        {{'textthank' | translate: 'Your request has been sent successfully'}}
+      </p>
+      <button class="thanks__btn" (click)="location.back()">
+        {{'backprevpage' | translate: 'Go back to the previous page'}}
+      </button>
+      <a [routerLink]="['/' + activeLocale]" class="thanks__link">{{'closethank' | translate: 'Close'}}</a>
+    </div>
+    <!-- Thanks Wrapper -->
+  </div>
+  <!-- Thanks Overlay -->
+</div>
+<!-- Thanks -->
+
+<div class="mainbg image">
+  <div #videoContainer class="video-container"></div>
+
+  <div class="main-content toptext">
+    <h1 class="main-content__title">
+      {{'index_h1_1' | translate: 'Real Estate on'}} <br>
+      {{'index_h1_2' | translate: 'Cote d\'Azur and in Monaco'}}
+    </h1>
+
+    <p class="main-content__subtitle">
+      {{'index_subtitle' | translate: 'Experts in search of luxury real estate'}}
+    </p>
+
+    <p class="main-content__info">
+      {{'index_txt1' | translate: 'Get a personal selection'}} <br>{{'index_txt2' | translate: 'on'}}
+      <strong>{{'index_txt3' | translate: '10 hot deals right now'}}</strong>
+    </p>
+
+    <contact-form view="index-top"
+                  [preventRedirect]="true"
+                  (onSend)="onRequestSend()"
+                  (onSent)="onRequestSent()"
+                  (onSentError)="onRequestSentError()">
+    </contact-form>
+
+    <p class="main-content__message">
+      <span class="lnr lnr-clock"></span>
+      {{'index_txt_clock' | translate: 'An attentive manager will contact you'}}
+    </p>
+
+    <!--
+      place button here because of z-index of drop down menu, otherwise menu won't overlap call-button
+    -->
+    <div *ngIf="callButtonVisible"
+         class="toggle-form">
+      <call-button (click)="showContactFormPopUp()"></call-button>
+    </div>
+  </div>
+
+  <div class="tophelper"></div>
+</div>
+
+<div #searchBlock
+     class="search">
+  <h2 class="search__title">
+    {{'index_srch_part' | translate: 'Search Properties'}}
+  </h2>
+
+  <div class="search__main-controls">
+    <div class="search__main-controls__one">
+      <button-group backgroundColor="white"
+                    textColor="black"
+                    [options]="searchService.buyRentOptions"
+                    [selectedValue]="searchParams.sale"
+                    [buttonBorderWidth]="0"
+                    (change)="onBuyRentChange($event.option.value)"
+                    class="group-sale-rent">
+      </button-group>
+    </div>
+
+    <div class="search__main-controls__two">
+      <white-dropdown #cityDropDown="white-dropdown"
+                      [title]="'choose_resorts' | translate: 'Resorts'"
+                      [enableInlineTags]="true"
+                      [multiple]="true"
+                      menuClass="city-drop-down-menu"
+                      (change)="onCityChanged($event.option.value)"
+                      class="city-drop-down text-center"
+                      [class.no-bottom-radius]="cityDropDown.open">
+
+        <white-dropdown-chip *ngFor="let option of getCityChips()"
+                             (remove)="onCityChanged(option.value)">
+          {{option.shortText}}
+        </white-dropdown-chip>
+
+        <ng-container *ngIf="searchService.citiesOptions && searchService.citiesOptions.length">
+          <white-dropdown-option *ngFor="let option of searchService.citiesOptions[0].options"
+                                 [value]="option.value"
+                                 [class.checked]="searchParams.cityValues.has(option.value)">
+            {{option.text}}
+          </white-dropdown-option>
+        </ng-container>
+      </white-dropdown>
+    </div>
+
+    <div class="search__main-controls__three">
+      <button class="search__btn"
+              (click)="onSearchButtonClick()">
+        <span class="lnr lnr-magnifier"></span>{{'index_srch' | translate: 'Search'}}
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="gallery-wrap" [style.position]="isBrowser ? 'relative' : 'inherit'">
+  <h2 i18n>{{'index_cities_title' | translate: 'Search by city'}}</h2>
+
+  <div class="main-gallery">
+    <div *ngFor="let el of indexGalleryItems"
+         class="main-gallery-item"
+         [routerLink]="[el.url]">
+      <div class="main-gallery-item-img-wrap">
+        <img [src]="el.img" [alt]="el.alt" class="main-gallery-item-img">
+      </div>
+      <div class="main-gallery-item-content-wrap">
+        <h3 class="main-gallery-item-content-title">{{el.txt}}</h3>
+        <p class="main-gallery-item-content-description">
+          {{el.description}}
+        </p>
+        <button class="main-gallery-item-content-cta">
+          <span class="lnr lnr-chevron-right"></span>
+          <span>{{'index_cities_link' | translate: 'Show all offers'}}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <br class="clear">
+</div>
+
+<div class="white-vip">
+  <h2 class="white-vip__title">{{'index_agency_title' | translate: 'White Estate agency is:'}}</h2>
+
+  <div class="vip-offers-wrap">
+    <div class="vip-offer">
+      <span class="bold">1000+</span>
+      <span>{{'index_agency_txt1' | translate: 'updated properties in France'}} <br>{{'index_agency_txt2' | translate: 'and Monaco'}}</span>
+    </div>
+    <div class="vip-offer">
+      <span class="bold">30</span>
+      <span>{{'index_agency_txt3' | translate: 'new objects each'}} <br>{{'index_agency_txt4' | translate: 'week'}}</span>
+    </div>
+    <div class="vip-offer">
+      <span class="bold">50</span>{{'index_agency_txt5' | translate: 'sales from 100 m2'}} <span> <br>{{'index_agency_txt6' | translate: 'annually'}}</span>
+    </div>
+  </div>
+</div>
+
+<div class="our-mission">
+  <div class="our-mission__wrap">
+    <div class="our-mission__photo">
+      <img src="../../assets/img/quote-bg.png"
+           alt="Clement ORAIN, управляющий директор"/>
+    </div>
+    <div class="our-mission__text">
+      <h2 class="our-mission__title">{{'index_mission_title' | translate: 'What is our mission?'}}</h2>
+      <blockquote class="our-mission__quote">
+        {{'index_mission_txt1' | translate: 'Thanks to a detailed knowledge of the market...'}}
+      </blockquote>
+      <cite class="our-mission__cite">
+        Clément ORAIN, {{'index_mission_txt2' | translate: 'managing director'}}
+      </cite>
+
+      <div class="our-mission__link">
+        <a href="" class="block-link">{{'index_mission_txt3' | translate: 'Contact'}} Clément</a>
+        <a href="" class="block-link">{{'about' | translate: 'About'}} White Estate</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="contact-us">
+  <h2 class="contact-us__title">
+    {{'index_form2_title' | translate: 'Let me help you in your search'}}
+  </h2>
+  <p class="contact-us__subtitle">
+    {{'index_form2_subtitle'
+    | translate: 'Make a valuable point and entrust the search for the ideal object to White Estate experts'}}
+  </p>
+
+  <contact-form view="index-bottom"
+                [preventRedirect]="true"
+                (onSend)="onRequestSend()"
+                (onSent)="onRequestSent()"
+                (onSentError)="onRequestSentError()">
+  </contact-form>
+</div>
+
+<div class="vip-benefits">
+  <div class="vip-benefits__wrap">
+    <div class="vip-benefits__content">
+      <h2 class="vip-benefits__title">
+        {{'index_vip_title1' | translate: 'See confidential objects, create'}}
+        <strong>{{'index_vip_title2' | translate: 'free VIP account'}}</strong>
+      </h2>
+
+      <div class="vip-benefits__list">
+        <div class="vip-benefits__item">
+          <p class="vip-benefits__paragraph">
+            <strong>{{'index_vip_txt1' | translate: 'Free individual search'}} </strong>
+            {{'index_vip_txt2' | translate: 'your criteria with a personal agent'}}
+          </p>
+        </div>
+        <div class="vip-benefits__item">
+          <p class="vip-benefits__paragraph">
+            <strong>{{'index_vip_txt3' | translate: 'Convenient panel'}} </strong>
+            {{'index_vip_txt4' | translate: 'search management and location of properties on the map'}}
+          </p>
+        </div>
+        <div class="vip-benefits__item">
+          <p class="vip-benefits__paragraph">
+            <strong>{{'index_vip_txt5' | translate: 'Free consultations:'}} </strong>
+            {{'index_vip_txt6' | translate: 'taxes, clearance, construction and loans at 2%'}}
+          </p>
+        </div>
+      </div>
+
+      <button class="vip-benefits__cta"
+              (click)="onCreateVipClicked()">
+        {{'index_vip_txt7' | translate: 'Create a free VIP account now'}}
+      </button>
+    </div>
+  </div>
+</div>
+
+<page-footer></page-footer>

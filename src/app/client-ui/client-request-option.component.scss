@@ -1,0 +1,33 @@
+:host {
+  padding: 10px;
+  display: block;
+}
+
+.request__line {
+
+  line-height: 28px;
+
+  &.request__line__second {
+
+    > span:not(:last-child) {
+
+      &:after {
+        content: ', ';
+      }
+    }
+  }
+}
+
+.request__sale-rent {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.request__cities {
+
+  span:not(:last-child) {
+    &:after {
+      content: ', '
+    }
+  }
+}

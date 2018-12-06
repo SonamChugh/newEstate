@@ -1,0 +1,62 @@
+{
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.png",
+          "/index.html",
+          "/manifest.json",
+          "/*.css",
+          "/*.js"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/**",
+          "/*.eot",
+          "/*.svg",
+          "/*.ttf",
+          "/*.woff",
+          "/*.woff2"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "img-performance",
+      "urls": [
+        "/img/**"
+      ],
+      "version": 0,
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 200,
+        "maxAge": "7d"
+      }
+    },
+    {
+      "name": "api-freshness",
+      "urls": [
+        "/php/translation*",
+        "/php/city*",
+        "/php/listing/*"
+      ],
+      "version": 0,
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 200,
+        "timeout": "2s",
+        "maxAge": "365d"
+      }
+    }
+  ]
+}

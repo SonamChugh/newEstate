@@ -1,0 +1,161 @@
+// @import "favorite-icon.scss";
+@import "listing-partial";
+
+:host {
+
+  position: relative;
+  font-family: Roboto, Arial, sans-serif;
+
+  &.compact {
+
+    .card {
+
+      &__price {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.status-confidential {
+
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+
+  i {
+    font-size: 30px;
+    color: white;
+  }
+
+  &__label {
+    display: none;
+    margin: 5px 0;
+    background-color: #e2f166;
+    padding: 5px 10px;
+  }
+
+  &:hover {
+
+    .status-confidential__label {
+      display: block;
+    }
+  }
+}
+
+.card__badge {
+
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 10px 14px;
+
+  background-color: #fff13b;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  font-size: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #000000;
+
+  border-radius: 17.5px;
+
+  &.badge-sold {
+    background-color: rgba(179, 35, 11, 0.9);
+  }
+
+  &.badge-new-building {
+    background-color: #fff13b;
+    color: #000000;
+  }
+
+  &.badge-new {
+    background-color: #fff13b;
+  }
+}
+
+.item {
+  padding: 15px 15px 0px 15px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.name {
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  font-size: 18px;
+
+  color: #212121;
+
+  margin-bottom: 15px;
+}
+
+image-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.favorite-icon {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  right: 15px;
+  bottom: 5px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  color: #CBCBCB;
+
+  &:hover {
+    color: #54677d;
+  }
+
+  .lnr {
+    font-size: 20px;
+  }
+}
+
+// Card Styles
+.card {
+  width: 470px;
+  height: 440px;
+  position: relative;
+  display: block;
+
+  &__divider {
+    height: 1px;
+    background: #d8d8d8;
+    mix-blend-mode: normal;
+    opacity: 0.3;
+    margin: 15px 0;
+  }
+
+  &__price {
+    font-style: normal;
+    font-weight: bold;
+    line-height: 1;
+    font-size: 24px;
+    color: #000000;
+    padding-bottom: 15px;
+  }
+}
+
+.list {
+  margin-right: 15px;
+  font-size: 14px;
+  font-weight: normal;
+}

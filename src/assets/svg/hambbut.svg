@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="25px" height="20px" viewBox="0 0 25 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+  <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
+  <title>Group</title>
+  <desc>Created with Sketch.</desc>
+  <defs></defs>
+  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+    <g id="Tablet-Portrait" sketch:type="MSArtboardGroup" transform="translate(-481.000000, -10.000000)"
+       stroke="#979797">
+      <g id="Group" sketch:type="MSLayerGroup" transform="translate(0.000000, -1.000000)">
+        <g transform="translate(481.000000, 11.000000)" id="Path-97" sketch:type="MSShapeGroup">
+          <path d="M0.0413161058,1.39973958 L24.0797776,1.39973958"></path>
+          <path d="M0.0413161058,7.23307292 L24.0797776,7.23307292"></path>
+          <path d="M0.0413161058,13.0664063 L24.0797776,13.0664063"></path>
+          <path d="M0.0413161058,18.8997396 L24.0797776,18.8997396"></path>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

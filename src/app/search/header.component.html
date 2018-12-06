@@ -1,0 +1,64 @@
+<div class="header-wrapper" [ngClass]="[color]">
+  <div class="block-upper">
+    <button class="btn-mobile-nav">
+      <span class="lnr lnr-menu"></span>
+    </button>
+    <div class="logo-container">
+      <a [routerLink]="['/']" (click)="onLogoClick()" class="logo">
+        White Estate
+      </a>
+      <div class="text-center">
+        <a [routerLink]="['/']" class="logo-subtitle">
+          FINDING BEST DEAL FOR YOU .....
+        </a>
+      </div>
+    </div>
+    <div class="leftbar">
+      <ng-container *ngIf="principal.isAuthenticated">
+        <div class="favorites">
+          <img src="/assets/svg/heart.svg" alt="" class="favorites__icon">
+          <a class="favorites__link" [routerLink]="['/', 'search', 'favorites']">
+            {{'header_link_favorites' | translate: 'My favorites'}}
+          </a>
+        </div>
+        <div class="divider"></div>
+        <div #userMenu
+             [class.opened]="profileMenuVisibility"
+             class="user-menu-container">
+          <button class="btn-toggle-menu btn-link" (click)="onAccountClick()">
+            <img src="/assets/svg/user.svg" height="40" width="40" alt="User Avatar" class="user__avatar">
+            <span class="user__name">
+              {{principal.displayName}}
+            </span>
+            <span class="user__arrow lnr"
+                  [class.lnr-chevron-down]="!profileMenuVisibility"
+                  [class.lnr-chevron-up]="profileMenuVisibility">
+            </span>
+          </button>
+          <user-drop-down-menu [open]="profileMenuVisibility"
+                               [color]="color"
+                               (close)="profileMenuVisibility = false">
+          </user-drop-down-menu>
+        </div>
+        <div class="divider"></div>
+      </ng-container>
+      <ng-container *ngIf="!principal.isAuthenticated">
+        <button (click)="toggleSignInDialog()"
+                class="btn-auth">
+          {{'popsignin' | translate: 'Sign in'}}
+        </button>
+        <button (click)="toggleSignUpDialog()"
+                class="btn-auth">
+          {{'popsignup' | translate: 'Sign up'}}
+        </button>
+      </ng-container>
+
+      <div class="langtop">
+        <language-selector [color]="color" view="a"></language-selector>
+      </div>
+
+      <ng-content select="header-right"></ng-content>
+    </div>
+  </div>
+  <div class="line-separator"></div>
+</div>

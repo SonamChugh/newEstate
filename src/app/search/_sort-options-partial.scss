@@ -1,0 +1,31 @@
+@mixin sort-options {
+
+  font-size: 14px;
+
+  .sort-word {
+    margin-right: 20px;
+  }
+
+  .btn-sort-option {
+
+    color: #4a90e2;
+    font-size: 14px;
+    padding: 0;
+
+    &.active {
+      color: #4A4A4A;
+      font-weight: bold;
+    }
+  }
+
+  .btn-reset-sort {
+    margin-left: 5px;
+    padding: 0;
+    vertical-align: middle;
+    font-size: 12px;
+
+    span {
+      font-weight: bold;
+    }
+  }
+}

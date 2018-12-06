@@ -1,0 +1,22 @@
+.favorite-icon {
+  background: none;
+  color: #9aa8b9;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.favorite-icon:hover {
+  color: #54677d;
+}
+
+.favorite-icon:after {
+  content: '\f08a';
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  font-stretch: normal;
+}
+
+.favorite-icon.checked:after {
+  content: '\f004';
+}

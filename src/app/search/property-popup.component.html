@@ -1,0 +1,26 @@
+<button *ngIf="isMobile" (click)="close()" class="btn-close">
+  <i class="fa fa-times" aria-hidden="true"></i>
+</button>
+
+<div *ngIf="isMobile"
+     [class.checked]="isFavorite"
+     (click)="handleFavoriteClick(); $event.stopPropagation()"
+     class="favorite-icon">
+</div>
+
+<img src="{{config.imgUrl}}{{listing?.coverImageSmall}}" class="property-image" (click)="handleListingActivate()">
+
+<div class="property-description" (click)="handleListingActivate()">
+
+  <ul>
+    <li>{{listing?.type | translate: listing?.type}} {{listing?.surface}}m²</li>
+    <li>{{translation.strings.chambres}}: {{listing?.bedroomsNumber}}</li>
+    <li>{{translation.strings.sdb}}: {{listing?.bathroomsNumber}}</li>
+    <li>{{translation.strings.pers}}: {{listing?.personsNumber}}</li>
+    <li *ngIf="listing?.pricePublished">
+      <span *ngIf="listing?.totpr == 0">{{translation.strings.noprice || '&nbsp;'}}</span>
+      <span *ngIf="listing?.totpr != 0">{{listing.totpr | currencyThousand}} €</span>
+    </li>
+  </ul>
+
+</div>

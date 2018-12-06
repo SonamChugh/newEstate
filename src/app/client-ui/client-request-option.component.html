@@ -1,0 +1,29 @@
+<div class="request__line">
+            <span class="request__sale-rent">
+              <ng-container *ngIf="request.sale === SaleRent.Sale">
+                {{'vente' | translate}}:
+              </ng-container>
+              <ng-container *ngIf="request.sale === SaleRent.Rent">
+                {{'location' | translate}}:
+              </ng-container>
+            </span>
+
+  <span *ngIf="request.types && request.types.size">{{getRequestTypesFormatted(request)}}</span>
+
+  <span *ngIf="request.cities.size"
+        class="request__cities">
+              {{'vip_request_cities_prefix' | translate: 'in'}} <span>{{getRequestCitiesFormatted(request)}}</span>
+            </span>
+</div>
+
+<div class="request__line request__line__second">
+            <span *ngIf="request.budgetMin || request.budgetMax">
+              {{'budget' | translate: 'Budget'}}: {{request.getBudgetFormatted()}} €<!-- no space
+            --></span>
+  <span *ngIf="request.surfaceMin || request.surfaceMax">
+            {{'surface' | translate: 'Surface'}}: {{request.getSurfaceFormatted()}} m²<!-- no space
+            --></span>
+  <span *ngIf="request.bedroomsMin || request.bedroomsMax">
+              {{'chambres' | translate: 'Bedrooms'}}: {{request.getBedroomsFormatted()}}<!-- no space
+            --></span>
+</div>

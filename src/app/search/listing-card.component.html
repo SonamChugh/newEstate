@@ -1,0 +1,81 @@
+<div class="image-container">
+
+  <image-carousel *ngIf="previewImages?.length"
+                  [images]="previewImages"
+                  [showIndex]="isHover && showImageIndex"
+                  [class.hover]="isHover">
+  </image-carousel>
+
+  <div *ngIf="listing.badgeEnabled && listing.isSold()"
+       class="card__badge badge-sold">
+    {{'sold' | translate: 'Sold'}}
+  </div>
+  <div *ngIf="!listing.isSold() && listing.newBuild"
+       class="card__badge badge-new-building">
+    {{'vefa' | translate: 'New building'}}
+  </div>
+  <div *ngIf="listing.badgeEnabled && !listing.isSold() && !listing.newBuild && listing.isPublishedRecently()"
+       class="card__badge badge-new">
+    {{'listing_new' | translate: 'New'}}
+  </div>
+
+  <div *ngIf="confidential" class="status-confidential">
+    <div *ngIf="!isMobile || confidentialLabelVisible"
+         class="status-confidential__label">
+      {{'vip_listing_confidential_label' | translate: 'This property is in confidential sale'}}
+    </div>
+    <i class="fa fa-star"
+       aria-hidden="true"
+       (click)="confidentialLabelVisible = !confidentialLabelVisible; $event.stopPropagation()">
+    </i>
+  </div>
+</div>
+
+<div class="item">
+
+  <div class="name">
+    {{listing.cityName}} •
+    {{rent ? ('location' | translate: 'Rent') : ('vente' | translate: 'Sale')}} •
+    {{listing.type | translate: listing.type}}
+  </div>
+
+  <div class="list">
+    {{listing.surface}} m² •
+    <ng-container *ngIf="listing.ters > 0 && listing.type === AccommodationTypeValue.Apartment">
+      {{'terrasses' | translate}} {{listing.ters}} m² •
+    </ng-container>
+    <ng-container *ngIf="listing.land > 0 && listing.type === AccommodationTypeValue.Villa">
+      {{'jardin' | translate}} {{listing.land}} m² •
+    </ng-container>
+    {{'chambres' | translate}}: {{listing.bedroomsNumber}}
+  </div>
+
+  <div class="card__divider"></div>
+
+  <div class="card__price">
+
+    <ng-container *ngIf="sale">
+      <ng-container *ngIf="listing.pricePublished">
+        <span *ngIf="listing.totpr === 0">{{'noprice' | translate: '&nbsp;'}}</span>
+        <span *ngIf="listing.totpr !== 0">{{listing.totpr | currencyThousand}} €</span>
+      </ng-container>
+      <ng-container *ngIf="!listing.pricePublished">
+        <span>{{'priceonreq' | translate: '&nbsp;'}}</span>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="rent">
+      <span>{{listing.rentpr || '&nbsp;'}}</span>
+    </ng-container>
+  </div>
+
+  <div *ngIf="favoriteButtonEnabled"
+       [class.checked]="isFavorite"
+       (click)="favoriteClick.emit(null); $event.stopPropagation()"
+       class="favorite-icon">
+    <span class="lnr lnr-heart"></span>
+  </div>
+
+</div>
+
+<ng-content select="listing-card-footer"></ng-content>

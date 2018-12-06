@@ -1,0 +1,60 @@
+<div class="section-ref text-center">ID {{listing?.ref}}</div>
+
+<h2 class="section-title">{{listing?.title}}</h2>
+
+<div class="section-brief-description text-center">
+
+  <div class="line-description">
+    {{listing?.cityName}} •
+    {{listing?.sale === 1 && sale ? ('vente' | translate) : ('location' | translate)}}
+  </div>
+
+  <div class="line-description">
+    {{listing?.type | translate: listing?.type}}
+    {{listing?.surface}} m²
+    <ng-container *ngIf="listing?.ters > 0 && listing?.type === AccommodationTypeValue.Apartment">
+      • {{'terrasses' | translate}} {{listing?.ters}} m²
+    </ng-container>
+    <ng-container *ngIf="listing?.land > 0 && listing?.type === AccommodationTypeValue.Villa">
+      • {{'jardin' | translate}} {{listing?.land}} m²
+    </ng-container>
+  </div>
+
+  <div class="line-description">
+
+    <ng-container *ngIf="listing?.bedroomsNumber > 0">
+      {{'chambres' | translate}}: {{listing?.bedroomsNumber}}
+    </ng-container>
+    <ng-container *ngIf="listing?.bathroomsNumber > 0">
+      • {{'sdb' | translate}}: {{listing?.bathroomsNumber}}
+    </ng-container>
+    <ng-container *ngIf="listing?.rent === 1 && listing?.personsNumber > 0">
+      • {{'pers' | translate}} {{listing?.personsNumber}}
+    </ng-container>
+
+  </div>
+
+  <div class="line-description">
+
+    <ng-container *ngIf="sale && listing?.sale === 1">
+      <ng-container *ngIf="listing?.pricePublished">
+        <span *ngIf="listing?.totpr === 0">{{'noprice'| translate: '&nbsp;'}}</span>
+        <span *ngIf="listing?.totpr !== 0">{{listing?.totpr | currencyThousand}} €</span>
+      </ng-container>
+      <ng-container *ngIf="!listing?.pricePublished">
+        <span>{{'priceonreq' | translate: '&nbsp;'}}</span>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="!sale && listing?.rent === 1">
+      <span>{{listing?.rentpr || '&nbsp;'}}</span>
+    </ng-container>
+
+  </div>
+
+</div>
+
+<div *ngIf="listing?.text"
+     class="section-description"
+     [innerHTML]="listing.text | lineBreak">
+</div>

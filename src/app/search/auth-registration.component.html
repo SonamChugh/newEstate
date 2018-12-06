@@ -1,0 +1,25 @@
+<div class="page-auth-registration block-center">
+
+  <div class="auth-title" *ngIf="title">
+    {{title}}
+  </div>
+
+  <div *ngIf="loading" class="loader absolute-center">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <form-registration *ngIf="!registrationSent"
+                     [buttonDisabled]="loading"
+                     [(error)]="error"
+                     [formHint]="''"
+                     (registerClick)="register($event.email, $event.password)"
+                     (facebookLoginClick)="loginWithFacebook()"
+                     (googleLoginClick)="loginWithGoogle()">
+  </form-registration>
+
+  <div *ngIf="registrationSent">
+    <div class="check-email-notify">
+      {{'popcheckmail' | translate: 'Check your email for account activation'}}
+    </div>
+  </div>
+</div>

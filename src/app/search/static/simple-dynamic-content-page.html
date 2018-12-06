@@ -1,0 +1,10 @@
+<page-header color="black">
+</page-header>
+
+<div class="page-content" [ngClass]="contentClass">
+  <div *ngIf="content"
+       [innerHTML]="content.text | safe: 'html'">
+  </div>
+</div>
+
+<page-footer></page-footer>

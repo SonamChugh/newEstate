@@ -1,0 +1,78 @@
+$carouselControlColor: #e4e4e4;
+
+:host {
+  display: block;
+
+  &.hover {
+    .slide {
+      &__img {
+        // filter: brightness(0.80);
+      }
+    }
+  }
+}
+
+.carousel-container {
+
+  height: 100%;
+
+  &:hover {
+
+    .slider-prev, .slider-next {
+      opacity: 1;
+    }
+  }
+
+  photos-slider {
+    height: 100%;
+  }
+}
+
+.slide {
+
+  width: 100%;
+  height: 100%;
+  display: none;
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all ease 0.5s;
+  }
+
+  &.active {
+    display: inline-block;
+  }
+}
+
+.slider-prev, .slider-next {
+  position: absolute;
+  background: none;
+  border: none;
+  color: $carouselControlColor;
+  font-size: 2rem;
+  font-weight: bold;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.5;
+  transition: 0.5s opacity;
+}
+
+.slider-prev {
+  left: 10px;
+}
+
+.slider-next {
+  right: 10px;
+}
+
+.image-index {
+  position: absolute;
+  left: 50%;
+  bottom: 5px;
+  color: $carouselControlColor;
+  transform: translateX(-50%);
+  font-size: 13px;
+  font-weight: bold;
+}

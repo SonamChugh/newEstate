@@ -1,0 +1,16 @@
+[Unit]
+Description=White Estate Web
+After=network.target
+
+[Service]
+ExecStart=/path/to/project/directory/bin/run.sh
+Restart=always
+User=nobody
+Group=nobody
+Environment=PATH=/bin:/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
+Environment=PORT=3000
+WorkingDirectory=/path/to/project/directory
+
+[Install]
+WantedBy=multi-user.target

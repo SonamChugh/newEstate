@@ -1,0 +1,12 @@
+{
+  "name": "White Estate",
+  "description": "",
+  "repository": "https://github.com",
+  "logo": "https://white-estate.fr/img/logo.png",
+  "env": {
+    "NPM_CONFIG_PRODUCTION": {
+      "description": "Install `webpack` and other development modules when deploying to allow full builds.",
+      "value": "false"
+    }
+  }
+}

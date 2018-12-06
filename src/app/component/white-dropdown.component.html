@@ -1,0 +1,82 @@
+<div class="white-dropdown"
+     [ngClass]="[color]"
+     [class.disabled]="disabled"
+     [class.menu-disabled]="menuDisabled"
+     [class.open]="open"
+     (mouseleave)="closeOnMouseOut ? closeMenu() : ''">
+
+  <div #current
+       class="white-dropdown-current"
+       (click)="disabled || menuDisabled ? '' : toggleMenu()">
+
+    <ng-container *ngIf="!customSelection">
+
+      <div class="white-dropdown-current__text"
+           *ngIf="!(multiple && enableInlineTags && (getChecked().length || chips.length)) || open">
+        <ng-container *ngIf="!inputFilter">
+          {{selected ? selected.viewValue : title}}
+        </ng-container>
+
+        <input #inputFilter
+               *ngIf="inputFilter"
+               [value]="inputFilterText || ''"
+               (click)="open && $event.stopPropagation()"
+               (input)="onFilterInput($event.currentTarget.value)"
+               type="text"
+               name="filter"
+               [placeholder]="selected ? selected.viewValue : title"/>
+      </div>
+
+      <div #tagContainer class="white-dropdown-checked-list small"
+           *ngIf="multiple && enableInlineTags && (getChecked().length || chips.length) && !open">
+
+        <ng-content select="white-dropdown-chip"></ng-content>
+
+        <div *ngFor="let option of getChecked()"
+             [style.height.px]="tagItemHeight"
+             (click)="$event.stopPropagation()"
+             class="white-tag-item">
+          <span>{{option.shortText || option.text}}</span>
+          <button (click)="toggleChecked(option, true); $event.stopPropagation()"></button>
+        </div>
+
+        <div class="white-dots" [style.height.px]="tagItemHeight" *ngIf="checkedListDotsVisibility">...</div>
+
+      </div>
+
+    </ng-container>
+
+    <ng-content select="white-dropdown-custom-selection"></ng-content>
+
+  </div>
+</div>
+
+<ng-template cdkPortal #menu>
+
+  <div class="white-dropdown-menu{{menuClass ? ' ' + menuClass : ''}}"
+       [style.top.px]="menuTop"
+       [style.left.px]="menuLeft"
+       [style.width.px]="menuWidth || actualMenuWidth">
+
+    <ng-container *ngIf="!multiple">
+      <div *ngFor="let option of options; let i = index" (click)="setCurrentIndex(i)"
+           class="white-dropdown-item level-1">
+        <span>{{option.text}}</span><span class="white-dropdown-check-mark" *ngIf="currentIndex == i">✔</span>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="multiple">
+      <div *ngFor="let option of options; let i = index;" (click)="toggleChecked(option, false)"
+           class="white-dropdown-item level-1">
+
+        <input [checked]="isChecked(option)" type="checkbox"/>
+
+        <label *ngIf="!allowHTML">{{option.text || '&nbsp;'}}</label>
+
+        <label *ngIf="allowHTML" [innerHTML]="(option.text | safe: 'html') || '&nbsp;'"></label>
+      </div>
+    </ng-container>
+
+    <ng-content></ng-content>
+  </div>
+</ng-template>

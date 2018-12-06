@@ -1,0 +1,273 @@
+<div class="banner">
+  <div class="header">
+
+    <div class="header__container">
+      <div class="logo">
+        <div class="logo__text">
+          White Estate
+        </div>
+        <div class="logo__subtext">
+          <div class="logo-subtitle">
+            FINDING BEST DEAL FOR YOU
+          </div>
+        </div>
+      </div><!-- .logo -->
+
+      <button class="header__cta"
+              (click)="scrollToForm()">
+        Зарегистрироваться
+      </button>
+    </div> <!-- .header__container -->
+
+    <div class="line-separator"></div>
+
+  </div><!-- Header -->
+
+  <div class="banner__container">
+    <h2 class="banner__lead"><strong>Канны,</strong><br>
+      конфиденциальные<br>
+      объекты, <strong>которые вы найдете
+        только у нас!</strong>
+    </h2>
+
+    <ul class="banner__list">
+      <li class="banner__item"><strong>Приватные</strong> продажи и аван-премьеры</li>
+      <li class="banner__item"><strong>Закрытые</strong> продажи от юристов и нотариусов</li>
+      <li class="banner__item">Продажи <strong>с аукционов</strong></li>
+    </ul>
+
+    <button class="banner__cta"
+            (click)="scrollToForm()">
+      Смотреть закрытую базу
+    </button>
+  </div><!-- .banner__container -->
+</div><!-- .banner -->
+
+<section class="section vip">
+  <div class="vip__title__box">
+    <h2 class="vip__title">Закрытая база VIP – это: </h2>
+  </div>
+
+  <ul class="vip__list">
+    <li class="vip__item"><span>1000</span><span>свежих объектов<br>недвижимости</span></li>
+    <li class="vip__item"><span>800 000 €</span><span>начальная цена<br>предложений</span></li>
+    <li class="vip__item"><span>30</span><span>новых объектов<br>каждую неделю</span></li>
+  </ul>
+</section>
+
+<section class="section quote">
+  <div class="quote__container">
+    <blockquote>Мы предлагаем Вам уникальную возможность поиска
+      недвижимости на Лазурном Берегу Франции и в Монако
+      при помощи удобного доступа к конфиденциальным
+      источникам объектов класса люкс.
+      Наша миссия – обеспечить Вам заключение самой успешной сделки.
+    </blockquote>
+    <cite>Clement ORAIN, управляющий директор </cite>
+
+    <svg class="quote__marks" width="60" height="59" viewBox="0 0 60 59" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M12.8701 27.8682H3.03126L3.02615 27.8656V0H26.3449V30.1314C26.3449 48.9109 19.4812 58.3007 5.75122 58.3007C4.64129 58.3007 2.72252 58.2011 0 58.0021V46.3415C8.68297 45.8363 13.0232 41.4425 13.0232 33.1678L12.8701 27.8682ZM60 30.1391V0.00510313L36.6838 0.0102063V27.8758H46.5226L46.6757 33.178C46.6757 41.9579 41.94 46.3491 32.4431 46.3491V58.0098C35.5688 58.2062 37.8882 58.3109 39.4063 58.3109C53.1363 58.3109 60 48.9211 60 30.1391Z"
+            fill="white"/>
+    </svg>
+  </div><!-- .quote__container -->
+</section>
+
+<section class="vip-includes">
+  <div class="vip-includes__title__box">
+    <h2 class="vip-includes__title">Так же в VIP доступе:</h2>
+  </div>
+
+  <ul class="vip-includes__list">
+    <li class="vip-includes__item">
+      <span class="vip-includes__item__cross">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 0H8V8H0V12H8V20H12V12H20V8H12V0Z" fill="white"/>
+        </svg>
+      </span>
+      <span>
+        <strong>Бесплатный индивидуальный поиск</strong> по вашим критериям
+        при помощи личного агента
+      </span>
+    </li>
+    <li class="vip-includes__item">
+      <span class="vip-includes__item__cross">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 0H8V8H0V12H8V20H12V12H20V8H12V0Z" fill="white"/>
+        </svg>
+      </span>
+      <span>
+        <strong>Удобная панель</strong> управления поиском и расположение
+        объектов на карте
+      </span>
+    </li>
+    <li class="vip-includes__item">
+      <span class="vip-includes__item__cross">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 0H8V8H0V12H8V20H12V12H20V8H12V0Z" fill="white"/>
+        </svg>
+      </span>
+      <span>
+        <strong>Бесплатные консультации:</strong> налоги, оформление,
+        строительство и кредиты под 2%
+      </span>
+    </li>
+  </ul>
+</section>
+
+<section #register
+         class="register">
+  <div class="register__container">
+    <h2 class="register__title">Зарегистрируйтесь сегодня и<br>
+      <strong>получите бесплатный VIP-доступ</strong>
+    </h2>
+
+    <ng-container *ngIf="activeForm !== 'password_recovery'">
+      <p class="register__lead">Пожалуйста, зарегистрируйтесь или войдите в систему: </p>
+
+      <!-- Tabs -->
+      <div class="register__tabs">
+        <button class="register__tabs__btn register__tabs__btn--left"
+                [class.active]="activeForm === 'register'"
+                (click)="activeForm = 'register'">
+          Регистрация
+        </button>
+        <button class="register__tabs__btn register__tabs__btn--right"
+                [class.active]="activeForm === 'login'"
+                (click)="activeForm = 'login'">
+          Войти
+        </button>
+      </div><!-- .register__cta__box -->
+
+      <!-- Tab Content -->
+      <div class="register__tab__content">
+        <form class="form active">
+          <div class="form__group">
+            <input #email
+                   class="form__input"
+                   type="email"
+                   name="email"
+                   placeholder="Ваш Email *"
+                   (input)="onInput()">
+          </div>
+
+          <div class="form__group">
+            <input #password
+                   class="form__input"
+                   type="password"
+                   name="password"
+                   placeholder="Пароль *"
+                   (input)="onInput()">
+          </div>
+
+          <div class="form__info">
+            <p class="form__info__p">После подключения через эту форму
+              вашему аккаунту будет присвоен
+              статус VIP</p>
+
+            <button *ngIf="activeForm === 'login'"
+                    (click)="togglePasswordRecovery()">
+              Забыли свой пароль?
+            </button>
+          </div>
+
+          <div class="alert-error" *ngIf="error">
+            {{error}}
+          </div>
+
+          <button *ngIf="activeForm === 'register'"
+                  class="form__submit"
+                  [disabled]="buttonLoginDisabled || buttonRegisterDisabled"
+                  (click)="onRegisterClicked(email.value, password.value)">
+            Зарегистрироваться и получить VIP-доступ
+          </button>
+
+          <button *ngIf="activeForm === 'login'"
+                  class="form__submit"
+                  [disabled]="buttonLoginDisabled || buttonRegisterDisabled"
+                  (click)="onLoginClicked(email.value, password.value)">
+            Войти и получить VIP-доступ
+          </button>
+
+        </form>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="activeForm === 'password_recovery'">
+
+      <p class="register__lead">
+        {{'auth_pass_recovery_top_text' | translate}}
+      </p>
+
+      <form class="form active">
+
+        <div class="form__group">
+          <input #email
+                 class="form__input"
+                 type="email"
+                 name="email"
+                 placeholder="Ваш Email *"
+                 (input)="onInput()">
+        </div>
+
+        <div class="form__info">
+
+          <p class="form__info__p"></p>
+
+          <button class="btn-toggle-login"
+                  (click)="toggleRegister()">
+            {{'returnlogin' | translate: 'Return to login'}}
+          </button>
+        </div>
+
+        <div class="alert-error" *ngIf="error">
+          {{error}}
+        </div>
+
+        <div class="alert-success" *ngIf="resetRequestSent">
+          {{'resetsentemail' | translate: 'Email sent with a link to reset your password'}}
+        </div>
+
+        <button class="form__submit"
+                [disabled]="buttonSendResetDisabled"
+                (click)="passwordRecoveryClicked(email.value)">
+          {{'btnresetpass' | translate: 'Reset password'}}
+        </button>
+
+      </form>
+
+    </ng-container>
+
+    <div class="social-auth">
+      <p class="form__p">или используйте Facebook для входа</p>
+
+      <button class="form__btn__fb" (click)="onFacebookLoginClicked()">
+        <img src="assets/svg/fb.svg" alt="facebook logo">
+        <span class="form__btn__fb__span">
+            Войти через Facebook
+          </span>
+      </button>
+    </div>
+
+
+  </div><!-- .register__container -->
+
+  <div class="register__info">
+    <div class="register__info__container">
+      <p>Количество бесплатных VIP-аккаунтов ограничено</p>
+    </div><!-- .register__info__container -->
+  </div><!-- .register__info -->
+</section>
+
+<footer class="footer">
+  <div class="footer__container">
+    <p class="footer__copy">&copy; SAS White Estate 2018</p>
+
+    <div class="footer__links">
+      <a href="tel:+33 (0) 7 88 05 05 05">+33 (0) 7 88 05 05 05</a>
+      <a href="mailto:info@white-estate.fr">info@white-estate.fr</a>
+    </div>
+
+    <p class="footer__address">ACA 23, улица Жан дэ Риуфф, 06400 Канны, Франция</p>
+  </div><!-- .footer__container -->
+</footer>

@@ -1,0 +1,450 @@
+<page-header *ngIf="!isMobileView"
+             color="black">
+</page-header>
+
+<div *ngIf="isMobileView"
+     class="search-header"
+     [class.fixed]="isBrowser"
+     #mobileHeader>
+  <div class="logo-compact" [routerLink]="['/']">
+    <img src="/assets/img/logo-compact_50.png"/>
+  </div>
+  <div class="user-dropdown-container">
+    <user-drop-down></user-drop-down>
+  </div>
+  <ng-container *ngIf="isSearchOrFavorites()">
+    <div>
+      <button class="top-button" (click)="toggleSearchBar(!isSearchBarVisible)">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        <span>{{'filtersm' | translate}}</span>
+      </button>
+    </div>
+    <div>
+      <button class="top-button" (click)="onMobileTopMenuSwitchView()">
+        <i class="fa fa-map-marker" *ngIf="mobileView === 'list'" aria-hidden="true"></i>
+        <i class="fa fa-list" *ngIf="mobileView === 'map'" aria-hidden="true"></i>
+        <span>{{mobileView === 'list' ? ('map' | translate) : ('list' | translate)}}</span>
+      </button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="view === 'details'">
+    <div>
+      <button class="top-button" (click)="onMobileTopMenuRequestClick()">
+        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+        <span>{{'menuaskq' | translate: 'Ask question'}}</span>
+      </button>
+    </div>
+    <div>
+      <button class="top-button" (click)="switchListMap()">
+        <i class="fa fa-map-marker" *ngIf="mobileView === 'list'" aria-hidden="true"></i>
+        <i class="fa fa-list" *ngIf="mobileView === 'map'" aria-hidden="true"></i>
+        <span>{{mobileView == 'list' ? ('map' | translate) : ('menudescr' | translate) }}</span>
+      </button>
+    </div>
+  </ng-container>
+</div>
+
+<mobile-filters *ngIf="isMobileView && isSearchBarVisible"
+                [searchParams]="searchParams"
+                [loading]="mobileFiltersLoading"
+                [propertiesFound]="mobilePropertiesFound"
+                (onSearch)="onMobileSearch()"
+                (onConfirm)="onMobileSearchConfirm()"
+                (onClose)="onMobileFiltersClose()">
+</mobile-filters>
+
+<div #upperFilters *ngIf="isSearchOrFavorites() && !isMobileView" class="content filters-upper">
+
+  <div class="filters-upper__wrapper block-center">
+
+    <button-group [options]="searchService.buyRentOptions"
+                  [selectedValue]="searchParams.sale"
+                  (change)="onBuyRentChange($event)"
+                  [borderRadius]="5"
+                  class="control__sale-rent">
+    </button-group>
+
+    <button-group [options]="searchService.typeOptions"
+                  [multiple]="true"
+                  [checkedValues]="searchParams.typeValues"
+                  (change)="onButtonGroupMultipleChange(searchParams.typeValues, $event)"
+                  [borderRadius]="5"
+                  class="control__type theme-dark">
+    </button-group>
+
+    <white-dropdown-from-to [title]="bedroomsTitle"
+                            [labelFrom]="'srchfrom' | translate: 'From'"
+                            [labelTo]="'srchto' | translate: 'To'"
+                            [from]="searchParams.bedroomsFrom"
+                            [to]="searchParams.bedroomsTo"
+                            menuAlign="right"
+                            (changed)="handleBedroomsChange($event.from, $event.to)"
+                            class="dropdown-bedrooms text-center">
+    </white-dropdown-from-to>
+
+    <white-dropdown-from-to [title]="surfaceTitle"
+                            [labelFrom]="('srchfrom' | translate: 'From') + ', m²'"
+                            [labelTo]="('srchto' | translate: 'To') + ', m²'"
+                            [from]="searchParams.surfaceFrom"
+                            [to]="searchParams.surfaceTo"
+                            menuAlign="right"
+                            (changed)="handleSurfaceChange($event.from, $event.to)"
+                            class="dropdown-surface text-center">
+    </white-dropdown-from-to>
+
+    <white-dropdown-from-to *ngIf="searchParams.sale === SaleRent.Sale"
+                            [title]="budgetSaleTitle"
+                            [labelFrom]="('srchfrom' | translate: 'From') + ', €'"
+                            [labelTo]="('srchto' | translate: 'To') + ', €'"
+                            [from]="searchParams.budgetFrom"
+                            [to]="searchParams.budgetTo"
+                            menuAlign="right"
+                            (changed)="handleBudgetSaleChange($event.from, $event.to)"
+                            class="dropdown-budget text-center">
+    </white-dropdown-from-to>
+
+    <white-dropdown *ngIf="searchParams.sale === SaleRent.Rent"
+                    [title]="budgetRentTitle"
+                    [options]="searchService.budgetRentOptions"
+                    [checkedValues]="searchParams.rentalRangeValues"
+                    [multiple]="true"
+                    [compact]="true"
+                    (change)="handleBudgetRentChange($event)"
+                    class="dropdown-budget text-center">
+    </white-dropdown>
+
+  </div>
+
+  <div *ngIf="isLeftColumnVisible" class="filters-bottom">
+
+    <h3 class="filters-bottom__heading">{{'search_filters_bottom' | translate: 'Search options'}}</h3>
+
+    <white-dropdown [options]="searchService.citiesOptions ? searchService.citiesOptions[0].options : []"
+                    [title]="'coteaz' | translate: 'French Riviera'"
+                    [checkedValues]="searchParams.cityValues"
+                    [multiple]="true"
+                    [enableInlineTags]="isBrowser"
+                    (change)="handleMultiple(searchParams.cityValues, $event)"
+                    class="text-padding">
+    </white-dropdown>
+
+    <button class="control__new-building"
+            [class.active]="searchParams.newBuild"
+            (click)="searchParams.newBuild = !searchParams.newBuild; onNewBuildChange()">
+      {{'vefa' | translate}}
+    </button>
+
+  </div>
+
+</div>
+
+<!-- details view begins -->
+
+<ng-container *ngIf="view == 'details' && (!isMobileView || mobileView === 'list')">
+
+  <div style="position: relative; width: 100%;" [style.marginTop.px]="isMobileView ? mobileHeaderHeight : 0">
+    <div class="ribbon-overlay"
+         (mouseover)="ribbonShiftEl.classList.add('hover')"
+         (mouseleave)="ribbonShiftEl.classList.remove('hover')">
+
+      <div #ribbonShiftEl class="ribbon-animated-shift">
+        <div class="listing-images-ribbon">
+
+          <button *ngIf="!listingImages"
+                  class="button-loading-placeholder">
+          </button>
+
+          <ng-container *ngIf="listingImages">
+
+            <button *ngIf="!isBrowser">
+              <img *ngIf="listing && listing.videoResources.length"
+                   [src]="configService.resourceUrl + listing.videoResources[0].imagePreviewSmall"/>
+            </button>
+
+            <listing-video *ngIf="isBrowser && listing && listing.videoResources.length"
+                           [source]="configService.resourceUrl + listing.videoResources[0].track_mp4_720p"
+                           [loop]="true"
+                           [autoplay]="true"
+                           [containerClass]="isFullScreen ? 'video-fullscreen-native' : 'listing-ribbon-video'"
+                           (click)="onVideoClick(listing.videoResources[0])">
+            </listing-video>
+
+          </ng-container>
+
+          <ng-container *ngIf="!isMobileView || listing?.videoResources?.length === 0">
+
+            <button *ngFor="let listingImage of listingImages | slice:0:ribbonImagesCount; let i = index"
+                    [attr.aria-label]="'Show all images. Photo ' + (i + 1) + ' of ' + listingImages.length"
+                    (click)="onRibbonImageClick(i)">
+              <img [src]="listingImage"/>
+            </button>
+
+          </ng-container>
+        </div>
+      </div>
+
+      <div *ngIf="mobileView !== 'map'"
+           class="back-search">
+        <a [routerLink]="[backUrl]"
+           [queryParams]="backUrlQueryParams"
+           class="btn-link">
+          <span *ngIf="!urlIsReference">{{'backtosrch' | translate: 'Back to search'}}</span>
+          <span *ngIf="urlIsReference">
+            <ng-container [ngSwitch]="from">
+              <ng-container *ngSwitchCase="DetailsCameFrom.Vip">
+                {{'vip_listing_details_back_button' | translate: 'Back to VIP'}}
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                {{'find_other_listings' | translate: 'Find other listings'}}
+              </ng-container>
+            </ng-container>
+          </span>
+        </a>
+      </div>
+
+      <div class="ribbon-buttons">
+
+        <button [class.checked]="listing ? favoritePartial.favoritesDict[listing.ref] : false"
+                (click)="onReferenceFavoriteClick(listing)"
+                class="favorite-icon"
+                title="add to favorites">
+        </button>
+
+        <button *ngIf="mobileView === 'list'"
+                class="btn-white btn-show-location"
+                (click)="onRibbonButtonShowLocationClick()">
+          {{'show_location' | translate: 'Show Location'}}
+        </button>
+
+        <button *ngIf="mobileView === 'map'"
+                class="btn-white btn-show-location"
+                (click)="onButtonShowDescriptionClick()">
+          {{'hide_map' | translate: 'Hide Map'}}
+        </button>
+
+        <button class="btn-white"
+                (click)="onSeePhotosClick()">
+          {{'see_photos' | translate: 'See photos'}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div>
+
+    <div class="listing-row">
+
+      <div class="listing-columns">
+
+        <div class="col-description">
+
+          <listing-description *ngIf="listing"
+                               [listing]="listing"
+                               [sale]="listingSaleRent !== SaleRent.Rent">
+          </listing-description>
+
+        </div>
+
+        <div *ngIf="!isMobileView" class="col-form">
+
+          <contact-form view="pink-full"
+                        [listing]="listing"
+                        [listingSaleRent]="listingSaleRent">
+          </contact-form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <hr class="similar-separator">
+
+    <div class="listing-row">
+
+      <div class="section-similar">
+
+        <div class="similar-title">{{'similaires' | translate: 'Similar Listings'}}</div>
+
+        <div class="similar-listings">
+          <listing-card *ngFor="let listing of similarListings"
+                        [listing]="listing"
+                        [isMobile]="isMobileView"
+                        [sale]="listingSaleRent === SaleRent.Sale"
+                        [rent]="listingSaleRent === SaleRent.Rent"
+                        [favoriteButtonEnabled]="false"
+                        (click)="onSimilarClick(listing)"
+                        class="compact">
+          </listing-card>
+        </div>
+
+      </div>
+    </div>
+
+    <contact-form
+      *ngIf="isMobileView"
+      class="form-pinned"
+      [view]="'pink'"
+      [listing]="listing"
+      [listingSaleRent]="listingSaleRent">
+    </contact-form>
+  </div>
+
+</ng-container>
+
+<!-- details view ends -->
+
+
+<div [style.marginTop.px]="contentMarginTop"
+     [class.full-width]="isMobileView && (view === 'details' || mobileView === 'map')"
+     class="content block-center">
+
+  <div class="col-half-left" *ngIf="!isMobileView || mobileView !== 'map'">
+
+    <!-- search list view begins -->
+
+    <div *ngIf="isSearchOrFavorites() && (!isMobileView || mobileView === 'list')"
+         #searchResults
+         class="search-results">
+
+      <div class="sort-options" *ngIf="isSearch()">
+        <span class="sort-word">{{'sort' | translate: 'Sort'}}:</span>
+        <ng-container *ngFor="let option of searchService.sortOptions; let i = index">
+          <ng-container *ngIf="option.value !== SortValue.LastModifiedFirst">
+            <button class="btn-link btn-sort-option"
+                    [class.active]="searchParams.sort === option.value"
+                    (click)="onSortClicked(searchParams.sort === option.value ? null : option.value)">
+              {{isMobileView ? option.shortText : option.text}}
+            </button>
+            <button *ngIf="searchParams.sort === option.value"
+                    class="btn-link btn-reset-sort"
+                    (click)="onSortClicked(null)">
+              <span class="lnr lnr-cross"></span>
+            </button>
+            <i *ngIf="i !== searchService.sortOptions.length - 1" class="dot"></i>
+          </ng-container>
+        </ng-container>
+      </div>
+
+      <h2 *ngIf="results.length">
+        {{view === 'favorites' ? ('titlefavlist' | translate) : ('resufd' | translate)}}
+        <ng-container *ngIf="view === 'search'">
+          ({{searchParams.sale === SaleRent.Sale ? ('vente' | translate) : ('location' | translate)}})
+        </ng-container>
+        -
+        {{results.length}}
+
+        <ng-container *ngIf="view === 'favorites'">
+          <button class="btn-close-favorites btn-icon" (click)="closeFavoritesPage()">
+            <span class="lnr lnr-cross"></span>
+          </button>
+        </ng-container>
+      </h2>
+      <h2 *ngIf="!results.length && !loading" class="text-center">
+        {{'noresult' | translate: 'No results'}}
+      </h2>
+
+      <listing-card *ngFor="let listing of visibleResults"
+                    [listing]="listing"
+                    [isFavorite]="favoritePartial.favoritesDict[listing.ref]"
+                    [isMobile]="isMobileView"
+                    [sale]="searchParams.sale === SaleRent.Sale"
+                    [rent]="searchParams.sale === SaleRent.Rent"
+                    (favoriteClick)="onSearchResultFavoriteClick(listing)"
+                    (click)="onSearchResultListingClick(listing); false"
+                    (mouseover)="onItemMouseOver(listing)"
+                    (mouseout)="onItemMouseOut(listing)"
+                    [class.selected]="listingSelected[listing.id]"
+                    class="card">
+      </listing-card>
+
+      <br class="clear"/>
+
+      <div *ngIf="loading" class="loader text-center">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <br class="clear">
+
+      <div class="block-center form-bottom-results" *ngIf="!loading && currentPage == totalPages">
+
+        <div *ngIf="view != 'favorites'">
+          <p>{{'searchform' | translate}}</p>
+
+          <contact-form view="search-bottom"></contact-form>
+        </div>
+
+        <div *ngIf="view == 'favorites' && favoritePartial.favorites.length"
+             class="favorites-request">
+
+          <div class="favorite-form-title">{{'favtitleform' | translate}}</div>
+
+          <div>
+            <textarea #message [placeholder]="'plholfavreq' | translate"></textarea>
+          </div>
+
+          <div>
+            <div *ngIf="error"
+                 class="alert-error">
+              {{error}}
+            </div>
+          </div>
+
+          <div>
+            <button [disabled]="requestSending"
+                    class="pricebut"
+                    (click)="sendFavoritesRequest(message.value)">
+              {{'buttonfav' | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- search list view ends -->
+
+  </div>
+
+  <div class="col-half-right"
+       [class.details-view]="view === 'details'"
+       *ngIf="!isMobileView || isRightColumnMobileLoadedOnce"
+       [style.display]="(isSearchOrFavorites() && !isMobileView) || mobileView === 'map' ? 'block' : 'none'">
+
+    <div #fixedContainer class="floating-container"
+         [class.fixed-height]="!isMobileView && view === ViewTypeValue.Details">
+
+      <map-wrapper [class.mobile]="isMobileView"></map-wrapper>
+
+      <div *ngIf="isMobileView && mobileView === 'map'" class="mobile-view-buttons">
+
+        <button class="btn-white btn-show-location"
+                (click)="onButtonShowDescriptionClick()">
+          {{'hide_map' | translate: 'Hide Map'}}
+        </button>
+
+      </div>
+
+      <div *ngIf="mapUpdating" class="map-loader text-center">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <button *ngIf="mapLoginButtonVisible && !principalService.isAuthenticated && isSearchOrFavorites()"
+              (click)="onMapLoginButtonClick()"
+              class="btn-orange btn-map-bottom">
+        {{'getindpos' | translate: 'Get individual positions'}}
+      </button>
+    </div>
+  </div>
+
+  <property-popup
+    *ngIf="listing && isMobileView && view === 'details' && mobileView === 'map'"
+    [listing]="listing"
+    class="details-map-description no-padding">
+  </property-popup>
+</div>
+
+<div *ngIf="searchParams.sale === 1 && view !== 'details'" class="toggle-form">
+  <call-button (click)="showContactFormPopUp()"></call-button>
+</div>
+
+<page-footer></page-footer>

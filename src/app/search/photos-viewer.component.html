@@ -1,0 +1,33 @@
+<div class="backdrop"></div>
+
+<div class="photos-container">
+
+  <div #slider class="slider">
+
+    <div class="image-container">
+      <ng-container *ngFor="let img of _activeImages; let i = index">
+        <img [src]="img || ''"
+             [class.active]="currentIndex === i"/>
+      </ng-container>
+    </div>
+
+    <button class="btn-link arrow prev" (click)="prev.emit({index: currentIndex})">
+      <span class="lnr lnr-chevron-left"></span>
+    </button>
+    <button class="btn-link arrow next" (click)="next.emit({index: currentIndex})">
+      <span class="lnr lnr-chevron-right"></span>
+    </button>
+
+    <div class="image-description-container">
+      <div class="image-description">
+        <div class="image-index">
+          {{currentIndex + 1}}/{{totalImages}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-close" (click)="close.emit(null)">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </button>
+</div>

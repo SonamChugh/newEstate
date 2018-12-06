@@ -1,0 +1,56 @@
+<div *ngIf="open" class="user-dropdown-menu" [ngClass]="[color]">
+  <ng-container *ngIf="!principalService.isAuthenticated">
+    <div class="dropdown-item">
+      <button (click)="toggleSignInDialog()"
+              class="btn-link">
+        {{'popsignin' | translate: 'Sign in'}}
+      </button>
+    </div>
+    <div class="dropdown-divider"></div>
+    <div class="dropdown-item">
+      <button (click)="toggleSignUpDialog()"
+              class="btn-link">
+        {{'popsignup' | translate: 'Sign up'}}
+      </button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="principalService.isAuthenticated">
+    <div [title]="principalService.displayName"
+         class="dropdown-item">
+      {{'popsignas' | translate}} {{principalService.isAuthenticated ? principalService.displayName : ''}}
+    </div>
+    <div class="dropdown-divider"></div>
+    <div class="dropdown-item">
+      <a [routerLink]="['/', translation.activeLocale, 'vip']" (click)="open = !open">
+        {{'user_menu_vip_button_text' | translate: 'VIP'}}
+      </a>
+    </div>
+    <div class="dropdown-divider"></div>
+    <div class="dropdown-item">
+      <a [routerLink]="['/', translation.activeLocale, 'search', 'favorites']" (click)="open = !open">
+        {{'gofav' | translate: 'Go to favorites'}}
+      </a>
+    </div>
+    <ng-container *ngIf="_betaService.activated">
+      <div class="dropdown-divider"></div>
+      <div class="dropdown-item">
+        <div class="subscribe-description">
+          {{'subscribe_long' | translate: ''}}
+        </div>
+        <div class="subscribe-button">
+          <mat-slide-toggle [(ngModel)]="subscribed"
+                            (change)="onSlideChanged($event.checked)">
+            {{'subscribe_short' | translate: ''}}
+          </mat-slide-toggle>
+        </div>
+      </div>
+    </ng-container>
+    <div class="dropdown-divider"></div>
+    <div class="dropdown-item">
+      <button (click)="logout()"
+              class="btn-link">
+        {{'popsignout' | translate: 'Sign out'}}
+      </button>
+    </div>
+  </ng-container>
+</div>

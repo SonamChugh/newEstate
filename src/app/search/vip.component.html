@@ -1,0 +1,187 @@
+<page-header *ngIf="mobileView !== SearchMobileView.Map" view="b" class="theme-dark"></page-header>
+
+<div #mobileMapHeader
+     *ngIf="mobileView === SearchMobileView.Map"
+     class="mobile-map-header">
+  <button class="btn-back-list btn-icon" (click)="switchListMap()">
+    <span class="lnr lnr-chevron-left"></span>
+  </button>
+  <div class="mobile-map-header__text">{{'vip_mobile_map_title' | translate: 'Objects on map'}}</div>
+</div>
+
+<div class="page-content">
+
+  <div class="col-left" *ngIf="!isMobileView || mobileView === SearchMobileView.List">
+
+    <div class="top-wrap">
+      <div *ngIf="topMessage" class="welcome-message">
+        {{topMessage}}
+        <button class="welcome-message__close-btn"
+                (click)="onTopMessageCloseClick()">
+          &times;
+        </button>
+      </div>
+
+      <div *ngIf="error" class="alert-error">
+        {{error}}
+      </div>
+
+      <div class="request-section-wrap">
+        <div class="request-selection-label">
+          {{'vip_request_selection_label' | translate: 'My Requests'}} ({{requests ? requests.length : 0}})
+        </div>
+
+        <button class="btn-new-request"
+                (click)="createRequest()">
+          {{'vip_button_add_request' | translate: 'Add New Request'}}
+        </button>
+      </div>
+
+      <div class="request-dropdown">
+
+        <white-dropdown (change)="onRequestChanged($event.option.value)"
+                        [disabled]="!requests?.length"
+                        [menuDisabled]="requests?.length === 1"
+                        class="request-selection"
+                        menuClass="request-selection-menu">
+
+          <white-dropdown-custom-selection *ngIf="activeRequest">
+
+            <client-request-option [request]="activeRequest"></client-request-option>
+
+            <button class="btn-secondary btn-edit-request"
+                    (click)="editRequest(); $event.stopPropagation()">
+            </button>
+          </white-dropdown-custom-selection>
+
+          <ng-container *ngFor="let request of requests">
+            <white-dropdown-option [value]="request.id"
+                                   [class.active]="request === activeRequest">
+              <client-request-option [request]="request"></client-request-option>
+            </white-dropdown-option>
+          </ng-container>
+
+        </white-dropdown>
+
+      </div>
+
+      <mat-progress-bar *ngIf="loading"
+                        mode="indeterminate"
+                        class="listings-progress-bar">
+      </mat-progress-bar>
+
+    </div>
+
+    <div class="results">
+      <h2 *ngIf="listings" class="results-found">
+        <ng-container *ngIf="listingsFiltered.length">
+          {{'vip_listings_found_label' | translate: 'Results found'}}
+        </ng-container>
+
+        <ng-container *ngIf="!listings.length">
+          {{'noresult' | translate: 'No results'}}
+        </ng-container>
+      </h2>
+
+      <div class="results-control">
+
+        <div class="sort-options">
+        <span class="sort-options__label">
+          {{'vip_sort_label' | translate: 'Show'}}:
+        </span>
+
+          <white-dropdown [title]="'sort' | translate: 'Sort'"
+                          [(ngModel)]="sort"
+                          menuClass="menu-sort-options"
+                          (change)="onSortClicked(sort)"
+                          class="sort-selection">
+            <white-dropdown-option *ngFor="let option of sortOptions"
+                                   [value]="option.value">
+              {{isMobileView ? option.shortText : option.text}}
+            </white-dropdown-option>
+          </white-dropdown>
+        </div>
+
+        <button class="btn-map" (click)="switchListMap()">
+          {{'btn_show_map' | translate: 'Show on the map'}}
+        </button>
+      </div>
+    </div>
+
+    <div class="line-separator"></div>
+
+    <div class="filter-options">
+
+      <button *ngFor="let option of categoryOptions"
+              [class]="'btn-filter-category ' + option.meta.className"
+              [class.active]="category === option.value"
+              (click)="onFilterClicked(option.value)">
+        <span class="btn-icon"></span>
+        <span class="btn-filter-category__text">{{option.text}}</span>
+        <span>&nbsp;({{getCategoryCount(option.value)}})</span>
+      </button>
+
+    </div>
+
+    <div class="listings">
+
+      <listing-card *ngFor="let listing of listingsFiltered"
+                    [listing]="listing"
+                    [isMobile]="isMobileView" [isFavorite]="favoritePartial.favoritesDict[listing.ref]"
+                    [confidential]="listing.confidential"
+                    [sale]="activeRequest.sale === SaleRent.Sale" [rent]="activeRequest.sale === SaleRent.Rent"
+                    (click)="activateListing(listing)"
+                    (favoriteClick)="onFavoriteClicked(listing)"
+                    [class.card--highlighted]="getFeedbackValue(listing.id) === null"
+                    class="card">
+
+        <listing-card-footer>
+
+          <div class="card__divider"></div>
+
+          <div class="feedback-buttons-container">
+            <button class="btn-feedback"
+                    [class.btn-feedback--active]="getFeedbackValue(listing.id) === FeedbackValue.NotHappy"
+                    [disabled]="isFeedbackButtonsDisabled(listing.id)"
+                    (click)="sendFeedback(requestId, listing.id, FeedbackValue.NotHappy); $event.stopPropagation()">
+              {{'vip_feedback_no' | translate: 'No'}}
+            </button>
+            <button class="btn-feedback"
+                    [class.btn-feedback--active]="getFeedbackValue(listing.id) === FeedbackValue.Maybe"
+                    [disabled]="isFeedbackButtonsDisabled(listing.id)"
+                    (click)="sendFeedback(requestId, listing.id, FeedbackValue.Maybe); $event.stopPropagation()">
+              {{'vip_feedback_maybe' | translate: 'Maybe'}}
+            </button>
+            <button class="btn-feedback"
+                    [class.btn-feedback--active]="getFeedbackValue(listing.id) === FeedbackValue.Happy"
+                    [disabled]="isFeedbackButtonsDisabled(listing.id)"
+                    (click)="sendFeedback(requestId, listing.id, FeedbackValue.Happy); $event.stopPropagation()">
+              {{'vip_feedback_yes' | translate: 'Yes'}}
+            </button>
+          </div>
+        </listing-card-footer>
+
+      </listing-card>
+
+      <br style="clear: both;"/>
+
+    </div>
+
+  </div>
+
+  <div class="col-right"
+       [style.display]="!isMobileView || mobileView === SearchMobileView.Map ? 'block' : 'none'">
+
+    <div #fixedContainer class="floating-container">
+      <map-wrapper [class.mobile]="isMobileView"></map-wrapper>
+    </div>
+
+    <div *ngIf="mapUpdating" class="map-loader text-center">
+      <mat-spinner></mat-spinner>
+    </div>
+
+  </div>
+
+</div>
+
+<page-footer></page-footer>

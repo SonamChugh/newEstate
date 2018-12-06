@@ -1,0 +1,114 @@
+$borderWidth: 9px;
+
+:host {
+  display: block;
+  position: relative;
+}
+
+.user-dropdown-menu {
+
+  position: absolute;
+  top: calc(100% + 10px);
+  //left: -100%;
+  right: 0;
+  //transform: translateX(50%);
+  padding: 0.5rem 0;
+  z-index: 999;
+  width: 220px;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+  font-size: 14px;
+
+  color: #212121;
+
+  background: #ffffff;
+  border: 1px solid #ebebeb;
+  box-sizing: border-box;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1),
+  inset 0px -1px 0px rgba(0, 0, 0, 0.05);
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -$borderWidth;
+    right: 6px;
+    width: 0;
+    height: 0;
+    border-left: $borderWidth solid transparent;
+    border-right: $borderWidth solid transparent;
+    border-bottom: $borderWidth solid white;
+  }
+
+  &.black {
+
+    &::after {
+      border-bottom: $borderWidth solid gainsboro;
+    }
+  }
+
+  &.white {
+
+    &::after {
+      border-bottom: $borderWidth solid white;
+    }
+  }
+
+  @media only screen and (max-width: 580px) {
+    top: calc(100% + 10px);
+  }
+}
+
+.arrow {
+  position: absolute;
+  top: -8px;
+  right: 50%;
+  transform: translateX(50%) rotate(45deg);
+  width: 15px;
+  height: 15px;
+  background: white;
+}
+
+.subscribe-description {
+  font-size: 12px;
+}
+
+.subscribe-button {
+  margin-top: 5px;
+}
+
+.dropdown-item {
+
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 15px;
+  clear: both;
+  font-weight: 400;
+  font-size: 0.925rem;
+  color: #292b2c;
+  text-align: inherit;
+  background: 0 0;
+  border: 0;
+
+  a, button {
+    color: #000;
+    display: block;
+  }
+
+  button {
+    font-size: .925rem;
+  }
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: #e1e4e8;
+  margin: 0 15px;
+}

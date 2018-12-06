@@ -1,0 +1,56 @@
+:host {
+
+}
+
+white-dropdown {
+
+  display: block;
+  width: 120px;
+  color: #4A4A4A;
+  text-indent: 0;
+  border: 1px solid #4A4A4A;
+  height: 36px;
+
+  white-dropdown-option {
+    padding: 10px;
+    color: #000;
+  }
+}
+
+.flag {
+
+  width: 16px;
+  height: 12px;
+  display: inline-block;
+
+  &--selected {
+    position: relative;
+    top: 2px;
+    left: -5px;
+    width: auto;
+    height: 16px;
+  }
+}
+
+.theme-flags {
+
+  width: 45px;
+  height: auto;
+  border: none;
+
+  white-dropdown-option {
+    padding: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+
+  white-dropdown {
+    width: 75px;
+    height: 22px;
+
+    white-dropdown-option {
+      padding: 0 5px;
+    }
+  }
+}

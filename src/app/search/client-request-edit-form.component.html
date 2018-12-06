@@ -1,0 +1,142 @@
+<h2 *ngIf="titleText" class="form-title">
+  {{titleText}}
+</h2>
+
+<div class="form-divider"></div>
+
+<table class="popup-table">
+  <tbody>
+  <tr>
+    <td>{{'project' | translate: 'Project'}}<span>*</span></td>
+    <td>
+
+      <mat-button-toggle-group [(ngModel)]="object.sale"
+                               (change)="onValueChanged()">
+        <mat-button-toggle *ngFor="let option of searchService.buyRentOptions"
+                           [value]="option.value">
+          {{option.text}}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+
+    </td>
+  </tr>
+  <tr>
+    <td>{{'type' | translate: 'Type'}}<span>*</span></td>
+    <td>
+      <mat-button-toggle-group multiple
+                               (change)="onValueChanged()">
+        <mat-button-toggle *ngFor="let option of searchService.typeOptions"
+                           [checked]="object.types.has(option.value)"
+                           [value]="option.value"
+                           (change)="handleSetChange(object.types, option.value)">
+          {{option.text}}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {{'towns' | translate: 'Towns'}}<span>*</span>
+    </td>
+    <td>
+      <white-dropdown [title]="'choose_resorts' | translate:'Resorts'"
+                      [multiple]="true"
+                      [enableInlineTags]="true"
+                      menuClass="city-drop-down-menu"
+                      (change)="handleSetChange(object.cities, $event.option.value); onValueChanged()"
+                      class="city-drop-down text-center">
+
+        <white-dropdown-chip *ngFor="let option of getCityChips()"
+                             (remove)="handleSetChange(object.cities, option.value)">
+          {{option.shortText}}
+        </white-dropdown-chip>
+
+        <ng-container *ngIf="searchService.citiesOptions && searchService.citiesOptions.length">
+          <white-dropdown-option *ngFor="let option of searchService.citiesOptions[0].options"
+                                 [value]="option.value">
+            <input [checked]="object.cities.has(option.value)" type="checkbox"/>
+            <label>{{option.text}}</label>
+          </white-dropdown-option>
+        </ng-container>
+      </white-dropdown>
+    </td>
+  </tr>
+  <tr>
+    <td>{{'budget' | translate: 'Budget'}}<span>*</span> (€)</td>
+    <td>
+      <div class="min-max-container">
+        <div class="input-container">
+          <span>{{'min' | translate: 'Min'}}:</span>
+          <input type="number"
+                 [(ngModel)]="object.budgetMin"
+                 (change)="onValueChanged()">
+        </div>
+        <div class="input-container">
+          <span>{{'max' | translate: 'Max'}}:</span>
+          <input type="number"
+                 [(ngModel)]="object.budgetMax"
+                 (change)="onValueChanged()">
+        </div>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {{'surface' | translate: 'Surface'}} (m²)
+    </td>
+    <td>
+      <div class="min-max-container">
+        <div class="input-container">
+          <span>{{'min' | translate: 'Min'}}:</span>
+          <input type="number"
+                 [(ngModel)]="object.surfaceMin"
+                 (change)="onValueChanged()">
+        </div>
+        <div class="input-container">
+          <span>{{'max' | translate: 'Max'}}:</span>
+          <input type="number"
+                 [(ngModel)]="object.surfaceMax"
+                 (change)="onValueChanged()">
+        </div>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {{'chambres' | translate: 'Bedrooms'}}
+    </td>
+    <td>
+      <div class="min-max-container">
+        <div class="input-container max-min">
+          <span>{{'min' | translate: 'Min'}}:</span>
+          <input type="number"
+                 [(ngModel)]="object.bedroomsMin">
+        </div>
+        <div class="input-container max-min">
+          <span>{{'max' | translate: 'Max'}}:</span>
+          <input type="number"
+                 [(ngModel)]="object.bedroomsMax">
+        </div>
+      </div>
+    </td>
+  </tr>
+  <tr *ngIf="error" class="error-container">
+    <td colspan="2">
+      <div class="alert-error">
+        {{error}}
+      </div>
+    </td>
+  </tr>
+  <tr *ngIf="buttonSaveVisible" class="submit-field">
+    <td>
+    </td>
+    <td>
+      <button (click)="onSaveClick()"
+              [disabled]="buttonSaveDisabled"
+              class="btn-orange btn-create-request btn-round">
+        {{buttonSaveText || 'Save'}}
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>

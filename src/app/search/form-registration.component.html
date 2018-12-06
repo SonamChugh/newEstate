@@ -1,0 +1,50 @@
+<form class="form active">
+  <div class="form__group">
+    <label class="form__label" for="email">{{'popup_field_email' | translate: 'Enter email *'}}</label>
+    <input #email
+           class="form__input"
+           type="email"
+           name="email"
+           [placeholder]="('popemail' | translate: 'Email')"
+           (input)="onInput()">
+  </div>
+
+  <div class="form__group">
+    <label class="form__label" for="password">{{'popup_field_pass' | translate: 'Enter password *'}}</label>
+    <input #password
+           class="form__input"
+           type="password"
+           name="password"
+           [placeholder]="('poppasslog' | translate: 'Password')"
+           (input)="onInput()">
+  </div>
+
+  <div class="form__info">
+    <p class="form__info__p">
+      {{formHint || ''}}
+    </p>
+  </div>
+
+  <div class="alert-error" *ngIf="error">
+    {{error}}
+  </div>
+
+  <button class="form__submit"
+          [disabled]="buttonDisabled"
+          (click)="onRegistrationButtonClick(email.value, password.value)">
+    {{buttonText || ('popsignup' | translate: 'Register')}}
+  </button>
+</form>
+
+<div class="social-auth">
+  <p class="form__p">
+    <span>{{'auth_social_buttons_text' | translate: 'or sign-in in 1 click'}}</span>
+  </p>
+
+  <button class="form__btn__fb" (click)="facebookLoginClick.emit()">
+    <img src="assets/svg/fb.svg" alt="facebook logo">
+    <span class="form__btn__fb__span">
+      {{'poplogfb' | translate: 'Log in with Facebook'}}
+    </span>
+  </button>
+</div>

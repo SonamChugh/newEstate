@@ -1,0 +1,76 @@
+@import 'favorite-icon';
+
+:host {
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+  border-radius: 3px;
+  width: 320px;
+  height: auto;
+  padding: 5px;
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+
+:host.no-padding {
+  padding: 0;
+}
+
+:host.scaled {
+  transform: scale(0.9);
+}
+
+.property-image {
+  height: 100px;
+}
+
+.property-description {
+  display: flex;
+  align-items: center;
+}
+
+.property-description ul {
+  padding-left: 30px;
+  font-size: 0.85rem;
+  max-width: 115px;
+  margin: 0;
+}
+
+.btn-close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  font-size: 24px;
+}
+
+.description-item {
+  display: inline-block;
+  vertical-align: top;
+  width: 40%;
+  font-weight: 300;
+  font-size: 11px;
+  color: #4A4A4A;
+  line-height: 16px;
+  text-align: center;
+  margin: 0 0 5px 0;
+}
+
+.description-item .description-item-icon {
+  font-size: 20px;
+  display: inline-block;
+  color: #222222;
+  text-shadow: none;
+}
+
+.favorite-icon {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+
+  &:after {
+    font-size: 1.6rem;
+  }
+}

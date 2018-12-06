@@ -1,0 +1,71 @@
+<div class="white-dropdown" [class.open]="open" (mouseleave)="closeOnMouseOut ? closeMenu() : ''">
+  <!--(mouseleave)="open = false"-->
+  <div #current class="white-dropdown-current" (click)="toggleMenu()">
+
+    <div class="white-dropdown-current-text" *ngIf="!(multiple && enableInlineTags && getChecked().length)">
+      {{currentIndex == undefined ? title : options[currentIndex].text}}
+    </div>
+
+    <div #tagContainer class="white-dropdown-checked-list small"
+         *ngIf="multiple && enableInlineTags && getChecked().length">
+
+      <div *ngFor="let option of getChecked()"
+           [style.height.px]="tagItemHeight"
+           (click)="$event.stopPropagation()"
+           class="white-tag-item">
+        <span>{{option.shortText || option.text}}</span>
+        <button (click)="toggleChecked(option, true); $event.stopPropagation()"></button>
+      </div>
+
+      <div class="white-dots" [style.height.px]="tagItemHeight" *ngIf="checkedListDotsVisibility">...</div>
+
+    </div>
+
+    <span class="white-dropdown-underline"></span>
+
+  </div>
+
+  <div *ngIf="open">
+
+    <div class="white-dropdown-menu">
+
+      <div *ngFor="let tab of tabs; let i = index" class="white-dropdown-tab"
+           [class.active]="activeTabIndex == i"
+           [style.width]="100/tabs.length + '%'"
+           (click)="activeTabIndex = i">
+
+        <div>{{tab.name}}</div>
+      </div>
+
+      <div *ngFor="let tab of tabs; let i = index" class="tab-options">
+
+        <ng-container *ngIf="!multiple && activeTabIndex === i">
+          <div *ngFor="let option of tab.options; let i = index" (click)="setCurrentIndex(i)"
+               class="white-dropdown-item">
+            <span>{{option.text}}</span><span class="white-dropdown-check-mark" *ngIf="currentIndex == i">✔</span>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="multiple && activeTabIndex === i">
+          <div *ngFor="let option of tab.options; let i = index;">
+
+            <div (click)="toggleChecked(option, false)" class="white-dropdown-item level-1">
+              <input [checked]="isChecked(option)" type="checkbox"/><label>{{option.text}}</label>
+            </div>
+
+            <div *ngIf="option.children">
+              <div *ngFor="let childOption of option.children" (click)="toggleChecked(childOption, false)"
+                   class="white-dropdown-item level-2">
+                <input [checked]="isChecked(childOption)" type="checkbox"/><label>{{childOption.text}}</label>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+      </div>
+
+      <div class="menu-bottom-line"></div>
+
+    </div>
+  </div>
+</div>

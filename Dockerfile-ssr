@@ -1,0 +1,27 @@
+FROM node:10.7-stretch
+
+WORKDIR /app
+
+ENV NODE_NEV=production
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY docker-ssr-startup.sh angular.json prerender.ts server.ts static.paths.ts tsconfig.json webpack.server.config.js ./
+COPY ./src ./src
+
+RUN apt-get update && apt-get install -y gettext
+RUN npm run build:ssr:docker \
+  && npm prune --production \
+  && rm package.json \
+  && rm package-lock.json \
+  && rm angular.json \
+  && rm prerender.ts \
+  && rm server.ts \
+  && rm static.paths.ts \
+  && rm tsconfig.json \
+  && rm webpack.server.config.js \
+  && rm -rf ./src \
+  && rm -rf ./node_modules
+
+CMD ["./docker-ssr-startup.sh"]
